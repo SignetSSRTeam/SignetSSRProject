@@ -72,4 +72,7 @@
   <ItemGroup>
     <RefactorLog Include="SignetSSRProjectData.refactorlog" />
   </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Script.PostDeployment1.sql" />
+  </ItemGroup>
 </Project>
