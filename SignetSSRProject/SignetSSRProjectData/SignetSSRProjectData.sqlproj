@@ -66,7 +66,7 @@
     <Build Include="HoursWorked.sql" />
     <Build Include="Job.sql" />
     <Build Include="ItemNumber.sql" />
-    <Build Include="MaterialsExpense.sql" />
+    <Build Include="MaterialExpense.sql" />
     <Build Include="WageHistory.sql" />
   </ItemGroup>
   <ItemGroup>

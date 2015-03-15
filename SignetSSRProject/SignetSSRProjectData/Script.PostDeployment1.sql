@@ -51,7 +51,7 @@ VALUES (EmployeeID,WageRT,WageOT,DateStart,DateEnd,IsCurrent);
 
 MERGE INTO Customer AS Target
 USING (VALUES 
-        ( 1, 'Nisha','Patel', 'ABC Inc','Manager','(434)-374-9098','npcijjcdc@aol.com',''), 
+        (1, 'Nisha','Patel', 'ABC Inc','Manager','(434)-374-9098','npcijjcdc@aol.com',''), 
         (2, 'Lindsey','Smith',  'XYZ Ltd.','CEO','(356)-462-4362','lsjcijdc@aol.com',''), 
 		(3, 'Ramya','Raval', 'PDQ Org.','Project Manager','(836)-444-7676','rrijjcdc@aol.com','')
 )
@@ -71,8 +71,8 @@ USING (VALUES
 AS Source (RateID,JobType,Supervisor,RateRT,RateOT) 
 ON Target.RateID = Source.RateID 
 WHEN NOT MATCHED BY TARGET THEN 
-INSERT (RateID,JobType,Supervisor,RateRT,RateOT) 
-VALUES (RateID,JobType,Supervisor,RateRT,RateOT);
+INSERT (JobType,Supervisor,RateRT,RateOT) 
+VALUES (JobType,Supervisor,RateRT,RateOT);
 
 
 MERGE INTO Job AS Target 
