@@ -43,6 +43,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -164,8 +166,51 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Attendance.cs">
+      <DependentUpon>SSRDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Customer.cs">
+      <DependentUpon>SSRDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Employee.cs">
+      <DependentUpon>SSRDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HoursWorked.cs">
+      <DependentUpon>SSRDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ItemNumber.cs">
+      <DependentUpon>SSRDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Job.cs">
+      <DependentUpon>SSRDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MaterialsExpense.cs">
+      <DependentUpon>SSRDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Rate.cs">
+      <DependentUpon>SSRDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SSRDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SSRDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SSRDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SSRDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SSRDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SSRDataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WageHistory.cs">
+      <DependentUpon>SSRDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SSRCommon.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +222,23 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\SSRDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SSRDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\SSRDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SSRDataModel.edmx</DependentUpon>
+      <LastGenOutput>SSRDataModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\SSRDataModel.edmx.diagram">
+      <DependentUpon>SSRDataModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\SSRDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SSRDataModel.edmx</DependentUpon>
+      <LastGenOutput>SSRDataModel.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -224,6 +286,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

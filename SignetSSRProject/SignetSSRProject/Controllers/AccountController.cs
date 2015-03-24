@@ -16,16 +16,19 @@ namespace SignetSSRProject.Controllers
     public class AccountController : Controller
     {
         public AccountController()
-            : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+            : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())),
+                   new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext())))
         {
         }
 
-        public AccountController(UserManager<ApplicationUser> userManager)
+        public AccountController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             UserManager = userManager;
+            RoleManager = roleManager;
         }
 
         public UserManager<ApplicationUser> UserManager { get; private set; }
+        public RoleManager<IdentityRole> RoleManager { get; private set; }
 
         //
         // GET: /Account/Login
@@ -45,6 +48,45 @@ namespace SignetSSRProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Create a default admin user if one does not exist
+                IdentityResult roleResult;
+
+                // Check to see if Administrator Role Exists, if not create it
+                if (!RoleManager.RoleExists(SSRCommon.Roles.ADMINISTRATOR_ROLE))
+                {
+                    roleResult = RoleManager.Create(new IdentityRole(SSRCommon.Roles.ADMINISTRATOR_ROLE));
+
+                    //Create a default admin user if one does not exist already
+                    var existingAdminUser = await UserManager.FindByNameAsync("admin");
+                    if (existingAdminUser == null)
+                    {
+                        bool isUserCreated = createUser("admin", SSRCommon.Roles.ADMINISTRATOR_ROLE, "123456");
+                        if (!isUserCreated)
+                        {
+                            ModelState.AddModelError("", "Unable to create default admin user.");
+                            return View(model);
+                        }
+                    }
+                }
+
+                // Create a default standard user if one does not exist
+                if (!RoleManager.RoleExists(SSRCommon.Roles.USER_ROLE))
+                {
+                    roleResult = RoleManager.Create(new IdentityRole(SSRCommon.Roles.USER_ROLE));
+
+                    //Create a default user if one does not exist already
+                    var existingAdminUser = await UserManager.FindByNameAsync("user");
+                    if (existingAdminUser == null)
+                    {
+                        bool isUserCreated = createUser("user", SSRCommon.Roles.USER_ROLE, "123456");
+                        if (!isUserCreated)
+                        {
+                            ModelState.AddModelError("", "Unable to create default user.");
+                            return View(model);
+                        }
+                    }
+                }
+
                 var user = await UserManager.FindAsync(model.UserName, model.Password);
                 if (user != null)
                 {
@@ -63,7 +105,7 @@ namespace SignetSSRProject.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
+        [Authorize(Roles = SSRCommon.Roles.ADMINISTRATOR_ROLE)]
         public ActionResult Register()
         {
             return View();
@@ -72,22 +114,24 @@ namespace SignetSSRProject.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize(Roles = SSRCommon.Roles.ADMINISTRATOR_ROLE)]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = model.UserName };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                //TO DO: We need to add a check to see whether a radio button
+                //indicates whether the user is an admin or a standard user.
+                //Currently all users will be registered with admin priviledges.
+
+                bool isUserCreated = createUser(model.UserName, SSRCommon.Roles.ADMINISTRATOR_ROLE, model.Password);
+                if (isUserCreated)
+                {                    
+                    return RedirectToAction("Register", "Account");
                 }
                 else
                 {
-                    AddErrors(result);
+                    ModelState.AddModelError("", "Error Occurred! Unable to create user.");
                 }
             }
 
@@ -403,6 +447,38 @@ namespace SignetSSRProject.Controllers
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
         }
+        #endregion
+
+        #region Custom Methods
+
+        private bool createUser(string userName, string roleName, string password)
+        {
+           //Create a default admin user if one does not exist already
+                            
+            var user = new ApplicationUser();
+            user.UserName = userName;
+            var defaultUserResult = UserManager.Create(user, password);
+
+            //Give user appropriate role
+            if (defaultUserResult.Succeeded)
+            {
+                var addToRoleResult = UserManager.AddToRole(user.Id, roleName);
+                if (addToRoleResult.Succeeded)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+               
+        }
+        
         #endregion
     }
 }
