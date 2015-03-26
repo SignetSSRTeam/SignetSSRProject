@@ -20,9 +20,36 @@ namespace SignetSSRProject.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Customer()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Your application description page.";
+
+            return View();
+        }
+
+        public ActionResult JobDetail()
+        {
+           // ViewBag.Message = "Your Job Deatils.";
+
+            return View();
+        }
+
+        public ActionResult Employee()
+        {
+            // ViewBag.Message = "Your Job Deatils.";
+
+            return View();
+        }
+        public ActionResult Attendance()
+        {
+            // ViewBag.Message = "Your Job Deatils.";
+
+            return View();
+        }
+       
+        public ActionResult Rate()
+        {
+            // ViewBag.Message = "Your Job Deatils.";
 
             return View();
         }
