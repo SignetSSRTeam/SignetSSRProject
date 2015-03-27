@@ -19,20 +19,23 @@
                 </button>
                 @Html.ActionLink("Signet Maritime", "Index", "Home", null, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Record Hours", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Materials", "About", "Home")</li>
-                    <li>@Html.ActionLink("Job Detail", "JobDetail", "Home")</li>
-                    <li>@Html.ActionLink("Customer", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Employees", "About", "Home")</li>
-                    <li>@Html.ActionLink("Attendance", "Attendance", "Home")</li>
-                    <li>@Html.ActionLink("Rate", "Rate", "Home")</li>
-                    <li>@Html.ActionLink("Reports", "About", "Home")</li>
+            @if (User.IsInRole("Administrator") || User.IsInRole("User"))
+            {
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Record Hours", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Materials", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Job Detail", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Customer", "Index", "Customers")</li>
+                        <li>@Html.ActionLink("Employees", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Attendance", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Rate", "Index", "Rates")</li>
+                        <li>@Html.ActionLink("Reports", "Index", "Home")</li>
                     
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            }
         </div>
     </div>
     <div class="container body-content">
