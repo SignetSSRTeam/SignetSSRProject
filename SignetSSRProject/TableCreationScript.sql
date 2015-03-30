@@ -66,7 +66,7 @@ CREATE TABLE Customer (
 	LastName VARCHAR(50) NOT NULL,
 	Company VARCHAR(30) NULL,
 	Title VARCHAR(30) NULL,
-	BusinessPhone CHAR(12) NULL,
+	BusinessPhone CHAR(15) NULL,
 	HomePhone CHAR(15) NULL,
 	CellPhone CHAR(15) NULL,
 	FaxNumber CHAR(15) NULL,
@@ -162,6 +162,128 @@ GO
 PRINT 'Tables Created'
 
 
+--Insert data into Tables
+INSERT INTO Rate(JobType,Supervisor,RateRT,RateOT) 
+VALUES ('DNU_In-house',0,46.00,46.00);
+INSERT INTO Rate(JobType,Supervisor,RateRT,RateOT) 
+VALUES ('Billable Hours', 0, 57.00,70.00);
+INSERT INTO Rate(JobType,Supervisor,RateRT,RateOT) 
+VALUES ('Affiliated',0,40,40);
+INSERT INTO Rate(JobType,Supervisor,RateRT,RateOT) 
+VALUES ('Billable Hours',0,57,70);
+INSERT INTO Rate(JobType,Supervisor,RateRT,RateOT) 
+VALUES ('Machine In-house',0,46,46);
+INSERT INTO Rate(JobType,Supervisor,RateRT,RateOT) 
+VALUES ('Machine Billable Hours',0,66.50,81.50);
+INSERT INTO Rate(JobType,Supervisor,RateRT,RateOT) 
+VALUES ('DNU_Machine In-house',0,55,65);
+INSERT INTO Rate(JobType,Supervisor,RateRT,RateOT) 
+VALUES ('DNU_Machine Billable Hours',0,60,70);
+INSERT INTO Rate(JobType,Supervisor,RateRT,RateOT) 
+VALUES ('Paid Time Off',0,0,0);
+INSERT INTO Rate(JobType,Supervisor,RateRT,RateOT) 
+VALUES ('Crescent Towing',0,50,50);
+INSERT INTO Rate(JobType,Supervisor,RateRT,RateOT) 
+VALUES ('Crescent Towing',0,62,62);
+INSERT INTO Rate(JobType,Supervisor,RateRT,RateOT) 
+VALUES ('DNU_New In-house',0,46,46);
+INSERT INTO Rate(JobType,Supervisor,RateRT,RateOT) 
+VALUES ('In-house',0,49,49);
+PRINT ('table Rate Inserted');
+SELECT * FROM Rate;
+
+INSERT INTO Employee (FirstName,LastName, JobTitle, SuperVisor,ContractLabor,WageRateRT,WageRateOT,HomePhone,CellPhone,Address,EmailAddress,Notes)
+VALUES('Donnie','Tibbetts', 'Welder',0,1,40.00,60.00,'(123)-234-2344','(456)-543-5697','12,cdr street,Pascagoula,MS-39581','xjcijjcdc@aol.com','');
+INSERT INTO Employee (FirstName,LastName, JobTitle, SuperVisor,ContractLabor,WageRateRT,WageRateOT,HomePhone,CellPhone,Address,EmailAddress,Notes)
+VALUES('Liza','Guzman',  'Programmer',0,1,60.00,80.00,'(123)-264-2944','(456)-533-5297','3452,abc street,Pascagoula,MS-39581','tyjcijdc@aol.com','');
+INSERT INTO Employee (FirstName,LastName, JobTitle, SuperVisor,ContractLabor,WageRateRT,WageRateOT,HomePhone,CellPhone,Address,EmailAddress,Notes)
+VALUES('Phil','Catlett', 'Cutter',0,1,42.00,62.00,'(123)-234-2394','(456)-243-5197','4562,vfdt street,Pascagoula,MS-39581','mnijjcdc@aol.com','');
+GO
+PRINT ('table Employee Inserted');
+GO
+SELECT * FROM Customer
+INSERT INTO Customer(FirstName,LastName,Company,Title, BusinessPhone,EmailAddress,Notes)
+VALUES('Ashwin', 'Kannalath','ABC Inc','Manager','(434)-374-9098','npcijjcdc@aol.com','' );
+INSERT INTO Customer(FirstName,LastName,Company,Title, BusinessPhone,EmailAddress,Notes)
+VALUES('Sridhar Reddy','Mallu', 'XYZ Ltd.','CEO','(356)-462-4362','lsjcijdc@aol.com','');
+INSERT INTO Customer(FirstName,LastName,Company,Title, BusinessPhone,EmailAddress,Notes)
+VALUES('Srisairamreddy','Menakuru','PDQ Org.','Project Manager','(836)-414-7676','rrijjcdc@aol.com','');
+INSERT INTO Customer(FirstName,LastName,Company,Title, BusinessPhone,EmailAddress,Notes)
+VALUES('Karthik Chandra','Cherukuri','CTS Org.','CEO','(836)-454-7676','rcndkjneioucdc@aol.com','' );
+INSERT INTO Customer(FirstName,LastName,Company,Title, BusinessPhone,EmailAddress,Notes)
+VALUES('Kamalnadh','Nimmagadda','EFG Org.','Manager','(836)-494-7676','rsieudc@aol.com','');
+INSERT INTO Customer(FirstName,LastName,Company,Title, BusinessPhone,EmailAddress,Notes)
+VALUES('Lindsey','Cerkovnik','IRS Org.','Project Manager','(836)-424-7676','rqwwerdc@aol.com','');
+INSERT INTO Customer(FirstName,LastName,Company,Title, BusinessPhone,EmailAddress,Notes)
+VALUES('Nisha','Patel','USA Org.','Manager','(836)-484-7676','rrwjxeunbdc@aol.com','');
+INSERT INTO Customer(FirstName,LastName,Company,Title, BusinessPhone,EmailAddress,Notes)
+VALUES('Ramya Keerthi','Katta','PPL Org.','Project Manager','(836)-334-7676','rocirjdc@aol.com','');
+GO
+PRINT ('table Customer Inserted');
+GO
+
+INSERT INTO Attendance(EmployeeID,Date,Attendance,HoursMissed,Reason,Excused)
+VALUES (1,'3-4-2015','7.5 Hours',0.5,'Late',1);
+INSERT INTO Attendance(EmployeeID,Date,Attendance,HoursMissed,Reason,Excused)
+VALUES (2,'3-4-2015','7.75 Hours',0.25,'Left Early',0);
+INSERT INTO Attendance(EmployeeID,Date,Attendance,HoursMissed,Reason,Excused)
+VALUES (3,'3-4-2015','7.90 Hours',0.10,'Traffic',1);
+GO
+PRINT ('table Attendence Inserted');
+GO
+
+INSERT INTO WageHistory(EmployeeID,WageRT,WageOT,DateStart,DateEnd,IsCurrent) 
+VALUES(1,40,60,'1-1-2015',Null,1);
+INSERT INTO WageHistory(EmployeeID,WageRT,WageOT,DateStart,DateEnd,IsCurrent) 
+VALUES(2,60,80,'1-1-2015',Null,1);
+INSERT INTO WageHistory(EmployeeID,WageRT,WageOT,DateStart,DateEnd,IsCurrent) 
+VALUES(3,42,62,'1-1-2015',Null,1);
+GO
+PRINT ('table WageHistory Inserted');
+GO
+
+INSERT INTO Job(JobNumber,CustomerID,RateID,VesselName,Priority,Status,Description,StartDate,EndDate)
+VALUES(1,1,1,'VesselA',1,0,Null,'3-4-2015',Null);
+INSERT INTO Job(JobNumber,CustomerID,RateID,VesselName,Priority,Status,Description,StartDate,EndDate)
+VALUES(2,2,6,'VesselB',2,1,Null,'3-4-2015',null);
+INSERT INTO Job(JobNumber,CustomerID,RateID,VesselName,Priority,Status,Description,StartDate,EndDate)
+VALUES(3,3,4,'VesselC',3,0,null,'3-4-2015',null);
+GO
+PRINT ('table Job Inserted');
+GO
+
+INSERT INTO ItemNumber(ItemNumber,Description) 
+VALUES(1,'ItemA');
+INSERT INTO ItemNumber(ItemNumber,Description) 
+VALUES(2,'ItemB');INSERT INTO ItemNumber(ItemNumber,Description) 
+VALUES(3,'ItemC');
+PRINT ('table ItemNumber Inserted');
+GO
+SELECT * FROM ItemNumber
+
+INSERT INTO HoursWorked(EmployeeID,JobID,ItemNumberID,Date,HoursWorkedRT, HoursWorkedOT) 
+VALUES(1,1,1,'3-4-2015',7.5,0);
+INSERT INTO HoursWorked(EmployeeID,JobID,ItemNumberID,Date,HoursWorkedRT, HoursWorkedOT) 
+VALUES(2,2,2,'3-4-2015',7.75,0);
+INSERT INTO HoursWorked(EmployeeID,JobID,ItemNumberID,Date,HoursWorkedRT, HoursWorkedOT) 
+VALUES(3,3,3,'3-4-2015',7.90,0);
+GO
+PRINT ('table HoursWorked Inserted');
+GO
+
+INSERT INTO MaterialsExpense(Expense,JobID,ItemNumberID,ExpenseDescription,PONumber,InvoiceNumber,TaxIncluded,TaxPercentage,MarkUpPercentage)
+VALUES(1000,1,1,Null,'1234567','00003746',1,6,15);
+INSERT INTO MaterialsExpense(Expense,JobID,ItemNumberID,ExpenseDescription,PONumber,InvoiceNumber,TaxIncluded,TaxPercentage,MarkUpPercentage)
+VALUES(20000,2,2,Null,'3747367','93847612',1,6,12);
+INSERT INTO MaterialsExpense(Expense,JobID,ItemNumberID,ExpenseDescription,PONumber,InvoiceNumber,TaxIncluded,TaxPercentage,MarkUpPercentage)
+VALUES(333333,3,3,Null,'1237654','09090909',1,6,15);
+GO
+PRINT ('table MaterialsExpense Inserted');
+GO
+PRINT ('All tables Inserted');
+GO
+
+
 --------------------------------------------------------------------------------------------------------
 
 
@@ -226,4 +348,4 @@ FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID)
 GO
 
 PRINT 'Foreign Key Constraints Created'
---Rate, Customer,Job
+
