@@ -226,3 +226,4 @@ FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID)
 GO
 
 PRINT 'Foreign Key Constraints Created'
+--Rate, Customer,Job
