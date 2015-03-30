@@ -120,14 +120,29 @@ namespace SignetSSRProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                //TO DO: We need to add a check to see whether a radio button
+                // Change 1 - TO DO: We need to add a check to see whether a radio button
                 //indicates whether the user is an admin or a standard user.
                 //Currently all users will be registered with admin priviledges.
 
-                bool isUserCreated = createUser(model.UserName, SSRCommon.Roles.ADMINISTRATOR_ROLE, model.Password);
+                //Change 2 - Now changing the code for creating user with respective selected role on view page
+
+                String UserRole= model.UserRole;
+
+                if (UserRole == "admin")
+                    UserRole = SSRCommon.Roles.ADMINISTRATOR_ROLE;
+                else if(UserRole=="user")
+                    UserRole = SSRCommon.Roles.USER_ROLE;
+
+
+                bool isUserCreated = createUser(model.UserName, UserRole, model.Password);
                 if (isUserCreated)
-                {                    
-                    return RedirectToAction("Register", "Account");
+                {
+                    ViewBag.Success = "true";
+                    ViewBag.Message = "This user profile is successfully registered !";
+                   // return RedirectToAction("Register", "Account");
+
+                    return View("Register");
+                   
                 }
                 else
                 {

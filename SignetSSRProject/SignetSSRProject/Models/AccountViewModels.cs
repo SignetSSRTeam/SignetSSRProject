@@ -49,6 +49,11 @@ namespace SignetSSRProject.Models
         [Display(Name = "User name")]
         public string UserName { get; set; }
 
+        // Adding this for user roles
+
+        [Required]
+        public string UserRole { get; set; }
+
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
