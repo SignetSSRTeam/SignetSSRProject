@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ISC567_SSRS_DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ISC567_SSRS_DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Attendance">
           <Key>
             <PropertyRef Name="AttendanceID" />
@@ -26,7 +26,7 @@
           <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Company" Type="varchar" MaxLength="30" />
           <Property Name="Title" Type="varchar" MaxLength="30" />
-          <Property Name="BusinessPhone" Type="char" MaxLength="12" />
+          <Property Name="BusinessPhone" Type="char" MaxLength="15" />
           <Property Name="HomePhone" Type="char" MaxLength="15" />
           <Property Name="CellPhone" Type="char" MaxLength="15" />
           <Property Name="FaxNumber" Type="char" MaxLength="15" />
@@ -278,8 +278,7 @@
             <End Role="WageHistory" EntitySet="WageHistory" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ISC567_SSRS_DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -305,7 +304,7 @@
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Company" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="Title" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="BusinessPhone" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
+          <Property Name="BusinessPhone" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
           <Property Name="HomePhone" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
           <Property Name="CellPhone" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
           <Property Name="FaxNumber" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
