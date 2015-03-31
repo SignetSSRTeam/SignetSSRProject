@@ -201,23 +201,23 @@ VALUES('Phil','Catlett', 'Cutter',0,1,42.00,62.00,'(123)-234-2394','(456)-243-51
 GO
 PRINT ('table Employee Inserted');
 GO
-SELECT * FROM Customer
-INSERT INTO Customer(FirstName,LastName,Company,Title, BusinessPhone,EmailAddress,Notes)
-VALUES('Ashwin', 'Kannalath','ABC Inc','Manager','(434)-374-9098','npcijjcdc@aol.com','' );
-INSERT INTO Customer(FirstName,LastName,Company,Title, BusinessPhone,EmailAddress,Notes)
-VALUES('Sridhar Reddy','Mallu', 'XYZ Ltd.','CEO','(356)-462-4362','lsjcijdc@aol.com','');
-INSERT INTO Customer(FirstName,LastName,Company,Title, BusinessPhone,EmailAddress,Notes)
-VALUES('Srisairamreddy','Menakuru','PDQ Org.','Project Manager','(836)-414-7676','rrijjcdc@aol.com','');
-INSERT INTO Customer(FirstName,LastName,Company,Title, BusinessPhone,EmailAddress,Notes)
-VALUES('Karthik Chandra','Cherukuri','CTS Org.','CEO','(836)-454-7676','rcndkjneioucdc@aol.com','' );
-INSERT INTO Customer(FirstName,LastName,Company,Title, BusinessPhone,EmailAddress,Notes)
-VALUES('Kamalnadh','Nimmagadda','EFG Org.','Manager','(836)-494-7676','rsieudc@aol.com','');
-INSERT INTO Customer(FirstName,LastName,Company,Title, BusinessPhone,EmailAddress,Notes)
-VALUES('Lindsey','Cerkovnik','IRS Org.','Project Manager','(836)-424-7676','rqwwerdc@aol.com','');
-INSERT INTO Customer(FirstName,LastName,Company,Title, BusinessPhone,EmailAddress,Notes)
-VALUES('Nisha','Patel','USA Org.','Manager','(836)-484-7676','rrwjxeunbdc@aol.com','');
-INSERT INTO Customer(FirstName,LastName,Company,Title, BusinessPhone,EmailAddress,Notes)
-VALUES('Ramya Keerthi','Katta','PPL Org.','Project Manager','(836)-334-7676','rocirjdc@aol.com','');
+
+INSERT INTO Customer(FirstName,LastName,Company,Title, BusinessPhone,HomePhone,CellPhone,FaxNumber,EmailAddress,Notes)
+VALUES('Ashwin', 'Kannalath','ABC Inc','Manager','(434)-374-9098',null,null,null,'npcijjcdc@aol.com','' );
+INSERT INTO Customer(FirstName,LastName,Company,Title, BusinessPhone,HomePhone,CellPhone,FaxNumber,EmailAddress,Notes)
+VALUES('Sridhar Reddy','Mallu', 'XYZ Ltd.','CEO','(356)-462-4362',null,null,null,'lsjcijdc@aol.com','');
+INSERT INTO Customer(FirstName,LastName,Company,Title, BusinessPhone,HomePhone,CellPhone,FaxNumber,EmailAddress,Notes)
+VALUES('Srisairamreddy','Menakuru','PDQ Org.','Project Manager','(836)-414-7676',null,null,null,'rrijjcdc@aol.com','');
+INSERT INTO Customer(FirstName,LastName,Company,Title, BusinessPhone,HomePhone,CellPhone,FaxNumber,EmailAddress,Notes)
+VALUES('Karthik Chandra','Cherukuri','CTS Org.','CEO','(836)-454-7676',null,null,null,'rcndkjneioucdc@aol.com','' );
+INSERT INTO Customer(FirstName,LastName,Company,Title, BusinessPhone,HomePhone,CellPhone,FaxNumber,EmailAddress,Notes)
+VALUES('Kamalnadh','Nimmagadda','EFG Org.','Manager','(836)-494-7676',null,null,null,'rsieudc@aol.com','');
+INSERT INTO Customer(FirstName,LastName,Company,Title, BusinessPhone,HomePhone,CellPhone,FaxNumber,EmailAddress,Notes)
+VALUES('Lindsey','Cerkovnik','IRS Org.','Project Manager','(836)-424-7676',null,null,null,'rqwwerdc@aol.com','');
+INSERT INTO Customer(FirstName,LastName,Company,Title, BusinessPhone,HomePhone,CellPhone,FaxNumber,EmailAddress,Notes)
+VALUES('Nisha','Patel','USA Org.','Manager','(836)-484-7676',null,null,null,'rrwjxeunbdc@aol.com','');
+INSERT INTO Customer(FirstName,LastName,Company,Title, BusinessPhone,HomePhone,CellPhone,FaxNumber,EmailAddress,Notes)
+VALUES('Ramya Keerthi','Katta','PPL Org.','Project Manager','(836)-334-7676',null,null,null,'rocirjdc@aol.com','');
 GO
 PRINT ('table Customer Inserted');
 GO
