@@ -255,7 +255,8 @@ GO
 INSERT INTO ItemNumber(ItemNumber,Description) 
 VALUES(1,'ItemA');
 INSERT INTO ItemNumber(ItemNumber,Description) 
-VALUES(2,'ItemB');INSERT INTO ItemNumber(ItemNumber,Description) 
+VALUES(2,'ItemB');
+INSERT INTO ItemNumber(ItemNumber,Description) 
 VALUES(3,'ItemC');
 PRINT ('table ItemNumber Inserted');
 GO

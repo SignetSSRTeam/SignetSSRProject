@@ -50,7 +50,7 @@ namespace SignetSSRProject.Controllers
             {
                 // Create a default admin user if one does not exist
                 IdentityResult roleResult;
-
+                // this change
                 // Check to see if Administrator Role Exists, if not create it
                 if (!RoleManager.RoleExists(SSRCommon.Roles.ADMINISTRATOR_ROLE))
                 {
