@@ -14,7 +14,7 @@ namespace SignetSSRProject.Controllers
     {
         private ISC567_SSRS_DatabaseEntities db = new ISC567_SSRS_DatabaseEntities();
 
-        // GET: Jobs
+        // GET: Jobspage 1
         public ActionResult Index()
         {
             var jobs = db.Jobs.Include(j => j.Customer).Include(j => j.Rate);
@@ -66,6 +66,7 @@ namespace SignetSSRProject.Controllers
         // GET: Jobs/Edit/5
         public ActionResult Edit(int? id)
         {
+            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
