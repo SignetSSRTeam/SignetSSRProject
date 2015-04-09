@@ -26,6 +26,16 @@ namespace SignetSSRProject
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/bundles/jsgrid/CSS").Include(
+                      "~/Content/JSGrid/jsgrid-theme.css",
+                      "~/Content/JSGrid/jsgrid.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jsgrid").Include(
+                      "~/Scripts/JSGrid/jsgrid.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/materials").Include(
+                      "~/Scripts/Materials/materials.js"));
         }
     }
 }

@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Signet Maritime</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/bundles/jsgrid/CSS")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jsgrid")
 
 </head>
 <body>
@@ -23,8 +27,8 @@
             {
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Record Hours", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Materials", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Record Hours", "Index", "HoursWorkeds")</li>
+                        <li>@Html.ActionLink("Materials", "Index", "Materials")</li>
                         <li>@Html.ActionLink("Job Detail", "Index", "Jobs")</li>
                         <li>@Html.ActionLink("Customer", "Index", "Customers")</li>
                         <li>@Html.ActionLink("Employees", "Index", "Home")</li>
@@ -46,8 +50,7 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    
     @RenderSection("scripts", required: false)
 </body>
 </html>
