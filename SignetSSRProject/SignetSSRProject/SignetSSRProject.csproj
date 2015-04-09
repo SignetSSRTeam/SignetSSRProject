@@ -163,6 +163,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HoursWorkedsController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\RatesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -294,6 +295,11 @@
     <Content Include="Views\Jobs\Details.cshtml" />
     <Content Include="Views\Jobs\Edit.cshtml" />
     <Content Include="Views\Jobs\Index.cshtml" />
+    <Content Include="Views\HoursWorkeds\Create.cshtml" />
+    <Content Include="Views\HoursWorkeds\Delete.cshtml" />
+    <Content Include="Views\HoursWorkeds\Details.cshtml" />
+    <Content Include="Views\HoursWorkeds\Edit.cshtml" />
+    <Content Include="Views\HoursWorkeds\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
