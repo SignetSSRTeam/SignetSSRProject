@@ -9,6 +9,6 @@ namespace SignetSSRProject.SSRCommon
     {
         public const string ADMINISTRATOR_ROLE = "Administrator";
         public const string USER_ROLE = "User";
-        //new file
+       
     }
 }
