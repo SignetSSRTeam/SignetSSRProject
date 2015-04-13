@@ -11,19 +11,45 @@ namespace SignetSSRProject.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class HoursWorked
     {
+
+       
         public int HoursWorkedID { get; set; }
+
+        
         public int EmployeeID { get; set; }
+
+        
         public int JobID { get; set; }
+
+        
         public Nullable<int> ItemNumberID { get; set; }
+
+
+
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime Date { get; set; }
+
+
+        [Required]
         public Nullable<decimal> HoursWorkedRT { get; set; }
+
+
+        [Required]
         public Nullable<decimal> HoursWorkedOT { get; set; }
-    
+
+        [Required]
         public virtual Employee Employee { get; set; }
+
+        [Required]
         public virtual ItemNumber ItemNumber { get; set; }
+
+        [Required]
         public virtual Job Job { get; set; }
     }
 }

@@ -11,6 +11,7 @@ namespace SignetSSRProject.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Job
     {
@@ -20,18 +21,51 @@ namespace SignetSSRProject.Models
             this.HoursWorkeds = new HashSet<HoursWorked>();
             this.MaterialsExpenses = new HashSet<MaterialsExpense>();
         }
-    
+
+        
         public int JobID { get; set; }
+
+        [Required]
         public string JobNumber { get; set; }
+
+        
         public int CustomerID { get; set; }
+
+
+        
         public int RateID { get; set; }
+
+
+        [Required]
         public string VesselName { get; set; }
+
+
+        [Required]
         public Nullable<int> Priority { get; set; }
+
+
+        [Required]
         public Nullable<bool> Status { get; set; }
+
+
+        [Required]
+        [StringLength(50)]
         public string Description { get; set; }
+
+
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> StartDate { get; set; }
+
+
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> EndDate { get; set; }
-    
+
+
+        
         public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HoursWorked> HoursWorkeds { get; set; }

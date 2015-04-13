@@ -11,6 +11,7 @@ namespace SignetSSRProject.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Rate
     {
@@ -19,11 +20,19 @@ namespace SignetSSRProject.Models
         {
             this.Jobs = new HashSet<Job>();
         }
-    
+        
         public int RateID { get; set; }
+
+        [Required]
         public string JobType { get; set; }
+
+        
         public Nullable<bool> Supervisor { get; set; }
+
+        [Required]
         public decimal RateRT { get; set; }
+
+        [Required]
         public decimal RateOT { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

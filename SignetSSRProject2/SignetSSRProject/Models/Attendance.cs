@@ -11,17 +11,33 @@ namespace SignetSSRProject.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Attendance
     {
+        
         public int AttendanceID { get; set; }
+
+        
         public int EmployeeID { get; set; }
+
+        
         public System.DateTime Date { get; set; }
+
+        
         public string Attendance1 { get; set; }
+
+        
         public Nullable<decimal> HoursMissed { get; set; }
+
+        [Required]
         public string Reason { get; set; }
+
+        
         public Nullable<bool> Excused { get; set; }
-    
+
+
+        
         public virtual Employee Employee { get; set; }
     }
 }

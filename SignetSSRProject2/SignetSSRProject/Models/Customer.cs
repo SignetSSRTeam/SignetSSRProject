@@ -11,6 +11,7 @@ namespace SignetSSRProject.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Customer
     {
@@ -19,17 +20,59 @@ namespace SignetSSRProject.Models
         {
             this.Jobs = new HashSet<Job>();
         }
-    
+
+        
         public int CustomerID { get; set; }
+
+        [Required]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = "* A valid first name is required.")]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
+
+        [Required]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = "* A valid last name is required.")]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
+
+        [Required]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = "* A valid company is required.")]
         public string Company { get; set; }
+
+        [Required]
+        [StringLength(60, MinimumLength = 6)]
         public string Title { get; set; }
+
+        [Required]
+        [StringLength(15, MinimumLength = 9, ErrorMessage = "* A valid phone nunber is required.")]
+        [Phone(ErrorMessage = "Please enter a valid phone number.")]
         public string BusinessPhone { get; set; }
+
+        [Required]
+        [StringLength(15, MinimumLength = 9, ErrorMessage = "* A valid phone nunber is required.")]
+        [Phone(ErrorMessage = "Please enter a valid phone number.")]
         public string HomePhone { get; set; }
+
+        [Required]
+        [StringLength(15, MinimumLength = 9, ErrorMessage = "* A valid phone nunber is required.")]
+        [Phone(ErrorMessage = "Please enter a valid phone number.")]
         public string CellPhone { get; set; }
+
+        [Required]
+        [StringLength(15, MinimumLength = 9, ErrorMessage = "* A valid Fax nunber is required.")]
+        [Phone(ErrorMessage = "Please enter a valid Fax number.")]
         public string FaxNumber { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        [EmailAddress(ErrorMessage = "* A valid email address is required.")]
+        [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
+                            @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
+                            @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$",
+                            ErrorMessage = "Email is not valid")]
         public string EmailAddress { get; set; }
+
+        [Required]
+        [StringLength(50)]
         public string Notes { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
