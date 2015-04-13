@@ -15,10 +15,31 @@ namespace SignetSSRProject.Controllers
         private ISC567_SSRS_DatabaseEntities db = new ISC567_SSRS_DatabaseEntities();
 
         // GET: Customers
-        public ActionResult Index()
+        public ActionResult Index(string FirstName, string LastName, string Company, string CustTitle)
         {
-            return View(db.Customers.ToList());
+            var Customers = from m in db.Customers
+                            select m;
+            if (!String.IsNullOrEmpty(FirstName))
+            {
+                Customers = Customers.Where(X => X.FirstName.Contains(FirstName));
+            }
+            if (!String.IsNullOrEmpty(LastName))
+            {
+                Customers = Customers.Where(X => X.LastName.Contains(LastName));
+            }
+            if (!String.IsNullOrEmpty(Company))
+            {
+                Customers = Customers.Where(X => X.Company.Contains(Company));
+            }
+            if (!String.IsNullOrEmpty(CustTitle))
+            {
+                Customers = Customers.Where(X => X.Title.Contains(CustTitle));
+            }
+
+            return View(Customers.ToList());
+
         }
+
 
         // GET: Customers/Details/5
         public ActionResult Details(int? id)

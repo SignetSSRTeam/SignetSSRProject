@@ -8,6 +8,13 @@
 
 <p>
     @Html.ActionLink("Create New", "Create")
+    @using (Html.BeginForm())
+    {
+    <p>
+        JobType: @Html.TextBox("JobType")<br />
+        <input type="submit" value="Filter" />
+    </p>
+    }
 </p>
 <table class="table">
     <tr>

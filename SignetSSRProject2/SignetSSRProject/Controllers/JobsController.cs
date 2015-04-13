@@ -15,11 +15,24 @@ namespace SignetSSRProject.Controllers
         private ISC567_SSRS_DatabaseEntities db = new ISC567_SSRS_DatabaseEntities();
 
         // GET: Jobs
-        public ActionResult Index()
+        public ActionResult Index(string JobNumber, string VesselName, string jobID)
         {
-            var jobs = db.Jobs.Include(j => j.Customer).Include(j => j.Rate);
+            //JobNumber	 VesselName	 Priority	 Status	 Description	 StartDate	 EndDate	
+            var jobs = from j in db.Jobs.Include(j => j.Customer).Include(j => j.Rate)
+                       select j;
+            if (!String.IsNullOrEmpty(JobNumber))
+            {
+                jobs = jobs.Where(x => x.JobNumber.Equals(JobNumber));
+            }
+            if (!String.IsNullOrEmpty(VesselName))
+            {
+                jobs = jobs.Where(x => x.VesselName.Contains(VesselName));
+            }
+
+
             return View(jobs.ToList());
         }
+
 
         // GET: Jobs/Details/5
         public ActionResult Details(int? id)

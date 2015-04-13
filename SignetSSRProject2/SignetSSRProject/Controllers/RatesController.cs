@@ -15,9 +15,16 @@ namespace SignetSSRProject.Controllers
         private ISC567_SSRS_DatabaseEntities db = new ISC567_SSRS_DatabaseEntities();
 
         // GET: Rates
-        public ActionResult Index()
+        public ActionResult Index(string JobType)
         {
-            return View(db.Rates.ToList());
+            var Rate = from r in db.Rates
+                       select r;
+            if (!String.IsNullOrEmpty(JobType))
+            {
+                Rate = Rate.Where(x => x.JobType.Contains(JobType));
+            }
+
+            return View(Rate.ToList());
         }
 
         // GET: Rates/Details/5
