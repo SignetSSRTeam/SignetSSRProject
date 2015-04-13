@@ -248,6 +248,7 @@
       <LastGenOutput>SSRDataModel.cs</LastGenOutput>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\HoursWorked\hoursWorked.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -301,10 +302,6 @@
     <Content Include="Views\Jobs\Details.cshtml" />
     <Content Include="Views\Jobs\Edit.cshtml" />
     <Content Include="Views\Jobs\Index.cshtml" />
-    <Content Include="Views\HoursWorkeds\Create.cshtml" />
-    <Content Include="Views\HoursWorkeds\Delete.cshtml" />
-    <Content Include="Views\HoursWorkeds\Details.cshtml" />
-    <Content Include="Views\HoursWorkeds\Edit.cshtml" />
     <Content Include="Views\HoursWorkeds\Index.cshtml" />
     <Content Include="Views\Materials\Index.cshtml" />
   </ItemGroup>

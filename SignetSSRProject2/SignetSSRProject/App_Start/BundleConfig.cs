@@ -36,6 +36,9 @@ namespace SignetSSRProject
 
             bundles.Add(new ScriptBundle("~/bundles/materials").Include(
                       "~/Scripts/Materials/materials.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/hoursWorked").Include(
+                      "~/Scripts/HoursWorked/hoursWorked.js"));
         }
     }
 }
