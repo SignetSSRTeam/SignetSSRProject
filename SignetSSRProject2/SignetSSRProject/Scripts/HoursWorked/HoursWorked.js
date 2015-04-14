@@ -1,51 +1,53 @@
-﻿(function () {
+﻿$(function () {
 
-    var employeeInfo = {
-        loadData:
-            function (filter) {
-                return this.data;
+    $("#jsGrid").jsGrid({
+        width: "100%",
+        height: "400px",
+
+        filtering: true,
+        editing: true,
+        sorting: true,
+        paging: true,
+        autoload: true,
+        pageSize: 25,
+        pageButtonCount: 5,
+        deleteConfirm: "Do you really want to delete the hours worked record?",
+
+
+        controller: {
+            loadData: function (filter) {
+                return $.ajax({
+                    type: "GET",
+                    url: "/HoursWorkeds/HoursWorkedsData",
+                    data: filter,
+                    dataType: "json"
+                });
             },
 
-        insertItem:
-            function (insertingClient) { },
+            insertItem: function (item) {
+                var HoursWorkedsData = JSON.stringify({ customer: JSON.stringify(item) })
+                return $.ajax({
+                    type: "POST",
+                    url: "/HoursWorkeds/HoursWorkedsData",
+                    data: item,
+                    dataType: "json"
+                });
+            },
 
-        updateItem:
-            function (updatingClient) { },
+            updateItem: function (item) { },
 
-        deleteItem:
-            function (deletingClient) { }
-    }
+            deleteItem: function (item) { },
+        },
 
-    window.employeeInfo = employeeInfo;
-
-    employeeInfo.data = [
-                        {
-                            "Date": "3/4/2015",
-                            "FirstName": "Donnie",
-                            "LastName": "Smith",
-                            "HoursWorkedRT": 8.00,
-                            "HoursWorkedOT": 0.00,
-                            "Description": "ItemA",
-                            "JobNumber": 1
-                        },
-                        {
-                            "Date": "3/4/2015",
-                            "FirstName": "Liza",
-                            "LastName": "Johnson",
-                            "HoursWorkedRT": 8.00,
-                            "HoursWorkedOT": 0.00,
-                            "Description": "ItemB",
-                            "JobNumber": 2
-                        },
-                        {
-                            "Date": "3/4/2015",
-                            "FirstName": "Phil",
-                            "LastName": "Wheeler",
-                            "HoursWorkedRT": 8.00,
-                            "HoursWorkedOT": 0.00,
-                            "Description": "ItemC",
-                            "JobNumber": 3
-                        }
-    ]
-}());
+        fields: [
+            { name: "FirstName", type: "text", width: 50},
+            { name: "LastName", type: "text", width: 50 }, 
+            { title: "Job ID", name: "JobID", type: "text", width: 50 },
+            { title: "Date", name: "Date", type: "text", width: 75 },
+            { title: "HoursWorkedRT", name: "HoursWorkedRT", type: "text", width: 50, itemTemplate: function (value) { return value.toFixed(2); } },
+            { title: "HoursWorkedOT", name: "HoursWorkedOT", type: "text", width: 60, itemTemplate: function (value) { return value.toFixed(2); }  },
+            { type: "control" }
+        ]
+    });
+});
 

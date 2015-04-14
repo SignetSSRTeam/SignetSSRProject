@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using SignetSSRProject.Models;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
+using System.Data.Entity.SqlServer;
 
 namespace SignetSSRProject.Controllers
 {
@@ -29,19 +30,24 @@ namespace SignetSSRProject.Controllers
 
 
 
-        //public ContentResult HoursWorkedData()
-        //{
-        //    var hoursWorkeds = db.HoursWorkeds.Include(h => h.Employee).Include(h => h.ItemNumber).Include(h => h.Job);
-        //    var hoursWorkedsData = (from hrs in hoursWorkeds)
-                                   // select new
-                                   // {
-                                    
-                                   // }
-            
-            //db.Configuration.ProxyCreationEnabled = false;
-            //JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
-            //string output = jsonSerializer.Serialize(db.HoursWorkeds.ToList());
-            //return Json(Content(output, "application/json"), JsonRequestBehavior.AllowGet);
+        public ContentResult HoursWorkedsData()
+        {
+            var hoursWorkeds = db.HoursWorkeds.Include(h => h.Employee).Include(h => h.ItemNumber).Include(h => h.Job);
+            var hoursWorkedsData = (from hrs in hoursWorkeds
+                                 select new
+                                 {
+                                     hrs.Employee.FirstName,
+                                     hrs.Employee.LastName,
+                                     JobID = hrs.JobID,
+                                     hrs.ItemNumberID,
+                                     Date = SqlFunctions.DateName("month", hrs.Date) + " " +  SqlFunctions.DateName("day", hrs.Date) + ", " + SqlFunctions.DateName("year", hrs.Date),
+                                     hrs.HoursWorkedRT,
+                                     hrs.HoursWorkedOT
+                                 }).ToList();
+            JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
+            string output = jsonSerializer.Serialize(hoursWorkedsData);
+            return Content(output, "application/json");
+        }
             
         }
 
