@@ -1,0 +1,49 @@
+﻿
+@{
+    Layout = null;
+}
+
+@using SignetSSRProject.Models
+@model WageHistory
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Create Foo Bar</h3>
+</div>
+
+@using (Html.BeginForm("saveWageHistory", "Employee", FormMethod.Post, new { @class = "modal-form" }))
+{
+    @Html.ValidationSummary()
+
+    <div class="modal-body">
+        <div>
+            @Html.LabelFor(x => x.DateStart)
+            @Html.EditorFor(x => x.DateStart)
+            @Html.ValidationMessageFor(x => x.DateStart)
+        </div>
+        <div>
+            @Html.LabelFor(x => x.DateEnd)
+            @Html.EditorFor(x => x.DateEnd)
+            @Html.ValidationMessageFor(x => x.DateEnd)
+        </div>
+        <div>
+            @Html.LabelFor(x => x.WageRT)
+            @Html.EditorFor(x => x.WageRT)
+            @Html.ValidationMessageFor(x => x.WageRT)
+        </div>
+        <div>
+            @Html.LabelFor(x => x.WageOT)
+            @Html.EditorFor(x => x.WageOT)
+            @Html.ValidationMessageFor(x => x.WageOT)
+        </div>
+        @Html.HiddenFor(x => x.WageHistoryID)
+        @Html.HiddenFor(x => x.EmployeeID)
+        @Html.HiddenFor(x => x.IsCurrent)
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Undo</button>
+        <button class="btn btn-primary" type="submit">Save</button>
+    </div>
+
+}
