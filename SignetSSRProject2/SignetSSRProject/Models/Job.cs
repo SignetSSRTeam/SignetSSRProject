@@ -45,6 +45,7 @@ namespace SignetSSRProject.Models
 
 
         [Required]
+        [UIHint("TrueFalse")]
         public Nullable<bool> Status { get; set; }
 
 
