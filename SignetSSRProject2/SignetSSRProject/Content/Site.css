@@ -41,6 +41,13 @@ input[type="checkbox"].input-validation-error {
     display: none;
 }
 
-.navbar-inverse { background-color:  #3a5795  !important; }
-.navbar-brand { color: #FFFFFF !important
+.navbar-inverse { background-color:  #0B99BD  !important; }
+.navbar-brand { color: #ffffff !important
     }
+
+.navbar-default .navbar-link {
+  color: #fff;
+}
+.navbar-default .navbar-link:hover {
+  color: #333;
+}
