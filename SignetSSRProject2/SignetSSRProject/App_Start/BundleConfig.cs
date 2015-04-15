@@ -39,6 +39,10 @@ namespace SignetSSRProject
 
             bundles.Add(new ScriptBundle("~/bundles/hoursWorked").Include(
                       "~/Scripts/HoursWorked/hoursWorked.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/modalform").Include(
+                   "~/Scripts/modalform.js"));
+ 
         }
     }
 }
