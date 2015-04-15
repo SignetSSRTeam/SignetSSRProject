@@ -95,6 +95,11 @@ namespace SignetSSRProject.Controllers
             {
                 return HttpNotFound();
             }
+            List<WageHistory> wageHistory = db.WageHistories.Where(x => x.EmployeeID == id && x.IsCurrent).ToList();
+            WageHistory wh = wageHistory[0];
+            employee.WageRateOT = wh.WageOT;
+            employee.WageRateRT = wh.WageRT;
+           
             return View(employee);
         }
 
@@ -126,6 +131,7 @@ namespace SignetSSRProject.Controllers
             {
                 return HttpNotFound();
             }
+           
             return View(employee);
         }
 
@@ -166,6 +172,7 @@ namespace SignetSSRProject.Controllers
                 {
                     db.Entry(wageHistory).State = EntityState.Modified;
                     db.SaveChanges();
+                    return Json(new { success = true });
                 }
 
                 catch(Exception e) {
@@ -175,7 +182,8 @@ namespace SignetSSRProject.Controllers
             
             }
 
-            return View("Edit", new { @id = wageHistory.EmployeeID });
+            return PartialView("_getWageHistory",wageHistory);
+            //return RedirectToAction("Edit", new { Id = wageHistory.EmployeeID, @target="parent"});
 
         }
     }

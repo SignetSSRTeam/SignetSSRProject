@@ -4,6 +4,15 @@
     ViewBag.Title = "Edit";
 }
 
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+
+
 <h2>Edit</h2>
 
 <div class="container">
@@ -14,7 +23,7 @@
     <div class="form-horizontal">
         <h4>Employee</h4>
         <div align="right">
-            @Html.ActionLink("Edit Wage Histoty", "getWageHistory", new {@Id=@Model.EmployeeID }, new { id = "btnCreate", @class = "modal-link btn btn-primary" })
+            @Html.ActionLink("Edit Wage Histoty", "getWageHistory", new { @Id = @Model.EmployeeID }, new { data_modal = "", id = "btnCreate", @class = "modal-link btn btn-primary" })
          </div>
         
         <hr />
@@ -139,5 +148,6 @@
 @section Scripts {
 
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/modalform")
 
 }
