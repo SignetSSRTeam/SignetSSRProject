@@ -1,10 +1,19 @@
-﻿@model bool
+﻿
+@model Nullable<bool>
 
-@if (Model)
+
+@if (Model == null)
+{
+
+    <text>Not set</text>
+
+}
+else if (Model == true)
 {
     <text>True</text>
 }
+
 else
 {
-    <text>False</text>
+     <text>False</text>
 }

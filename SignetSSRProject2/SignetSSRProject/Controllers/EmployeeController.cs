@@ -155,9 +155,9 @@ namespace SignetSSRProject.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult getWageHistory( )
+        public ActionResult getWageHistory(int? id )
         {
-           List<WageHistory> list=db.WageHistories.Where(x => x.EmployeeID == 1 && x.IsCurrent).ToList();
+           List<WageHistory> list=db.WageHistories.Where(x => x.EmployeeID == id && x.IsCurrent).ToList();
            WageHistory w = list[0];
 
             return PartialView("_getWageHistory",w);
