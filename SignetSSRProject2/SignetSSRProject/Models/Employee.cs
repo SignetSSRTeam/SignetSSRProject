@@ -40,10 +40,10 @@ namespace SignetSSRProject.Models
         [StringLength(60, MinimumLength = 6)]
         public string JobTitle { get; set; }
 
-        
+        [UIHint("TrueFalse")]
         public Nullable<bool> Supervisor { get; set; }
 
-        
+        [UIHint("TrueFalse")]
         public Nullable<bool> ContractLabor { get; set; }
 
         
@@ -75,7 +75,6 @@ namespace SignetSSRProject.Models
                             ErrorMessage = "Email is not valid")]
         public string EmailAddress { get; set; }
 
-        [Required]
         [MaxLength(50)]
         public string Notes { get; set; }
     

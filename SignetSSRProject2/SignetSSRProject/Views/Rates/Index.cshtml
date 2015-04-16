@@ -39,13 +39,14 @@
             @Html.DisplayFor(modelItem => item.JobType)
         </td>
         <td>
+
             @Html.DisplayFor(modelItem => item.Supervisor)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.RateRT)
+            $@Html.DisplayFor(modelItem => item.RateRT)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.RateOT)
+            $@Html.DisplayFor(modelItem => item.RateOT)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.RateID }) |

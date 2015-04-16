@@ -23,14 +23,18 @@ namespace SignetSSRProject.Models
         public int WageRT { get; set; }
         [Required]
         public int WageOT { get; set; }
+
         [Required]
-        public Nullable<System.DateTime> DateStart { get; set; }
-        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime DateStart { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> DateEnd { get; set; }
         [Required]
         public bool IsCurrent { get; set; }
 
-        [Required]
         public virtual Employee Employee { get; set; }
     }
 }

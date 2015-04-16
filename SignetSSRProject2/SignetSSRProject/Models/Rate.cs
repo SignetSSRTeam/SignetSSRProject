@@ -26,7 +26,7 @@ namespace SignetSSRProject.Models
         [Required]
         public string JobType { get; set; }
 
-        
+        [UIHint("TrueFalse")]
         public Nullable<bool> Supervisor { get; set; }
 
         [Required]
