@@ -77,6 +77,17 @@ namespace SignetSSRProject.Controllers
             {
                 db.Employees.Add(employee);
                 db.SaveChanges();
+                int employeeCount = db.Employees.ToList().Count();
+                int EmployeeId = db.Employees.ToList()[employeeCount - 1].EmployeeID;
+                WageHistory wageHistory = new WageHistory();
+                wageHistory.EmployeeID = EmployeeId;
+                wageHistory.WageOT = (Int32)employee.WageRateOT;
+                wageHistory.WageRT = (Int32)employee.WageRateRT;
+                wageHistory.IsCurrent = true;
+                wageHistory.DateStart = DateTime.Now.Date;
+                db.WageHistories.Add(wageHistory);
+                db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
@@ -140,6 +151,14 @@ namespace SignetSSRProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+           // db.WageHistories.Remove
+
+            List<WageHistory> wageHistories = db.WageHistories.Where(x => x.EmployeeID == id && x.IsCurrent).ToList();
+            foreach (WageHistory wageHistory in wageHistories)
+            {
+                db.WageHistories.Remove(wageHistory);
+            }
+            db.SaveChanges();
             Employee employee = db.Employees.Find(id);
             db.Employees.Remove(employee);
             db.SaveChanges();
