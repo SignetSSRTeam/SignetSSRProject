@@ -1,10 +1,18 @@
 ﻿@model IEnumerable<SignetSSRProject.Models.MaterialsExpense>
+        
+<script>
+    var listJobNumber = '@ViewBag.jobNumbers';
+    listJobNumber = JSON.parse(listJobNumber.replace(/&quot;/g, '"'));
+</script>
 
-@Scripts.Render("~/bundles/materials")
+<script src="/Scripts/Materials/materials.js"></script>
+@*Scripts.Render("~/bundles/materials")*@
 
 @{
     ViewBag.Title = "Material Expenses";
 }
+
+
 
 <style type="text/css">
     #jsGrid {
@@ -13,6 +21,8 @@
 </style>
 
 <h2>Material Expenses</h2>
+
+<div><h2></h2></div>
 
 <div id="jsGrid">
 </div>

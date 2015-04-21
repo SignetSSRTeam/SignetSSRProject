@@ -14,11 +14,24 @@ namespace SignetSSRProject.Controllers
     public class MaterialsController : Controller
     {
         private ISC567_SSRS_DatabaseEntities db = new ISC567_SSRS_DatabaseEntities();
+        
 
         // GET: /Materials/
         public ActionResult Index()
         {
+            var jobs = db.Jobs;
+            var jobNum = (from j in jobs
+                                 select new
+                                 {
+                                     j.JobID,
+                                     j.JobNumber
+                                 }).ToList();
+            JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
+            string jobNumbers = jsonSerializer.Serialize(jobNum);
+            ViewBag.jobNumbers = jobNumbers;
+
             var materialsexpenses = db.MaterialsExpenses.Include(m => m.ItemNumber).Include(m => m.Job);
+            
             return View(materialsexpenses.ToList());
         }
 
@@ -31,7 +44,7 @@ namespace SignetSSRProject.Controllers
                                  {
                                      mat.MaterialsExpenseID,
                                      mat.Expense,
-                                     JobID = mat.Job.JobNumber,
+                                     JobID = mat.Job.JobID,
                                      mat.ItemNumberID,
                                      mat.ExpenseDescription,
                                      mat.PONumber,
@@ -51,14 +64,6 @@ namespace SignetSSRProject.Controllers
         {
             var materialsExpenses = db.MaterialsExpenses.Include(m => m.Job);
             var job = db.Jobs;
-            var materialsJobNumber = materials.JobID.ToString();
-
-            var materialsJobID = (from j in job
-                                  where j.JobNumber == materialsJobNumber
-                                  select
-                                        j.JobID
-                                 ).SingleOrDefault();
-            materials.JobID = Convert.ToInt32(materialsJobID);
             materials.ItemNumberID = 1; //Hard coding for now because there will be future changes in the database
             if (ModelState.IsValid)
             {
@@ -72,9 +77,10 @@ namespace SignetSSRProject.Controllers
                 {
                     foreach (ModelError err in modelState.Errors)
                     {
-                        error = error + err;
+                        error = error + " \n" + err.ErrorMessage;
                     }
                 }
+                return Content("", "application/json");
             }
 
             JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
@@ -87,16 +93,7 @@ namespace SignetSSRProject.Controllers
         [HttpPost]
         public ContentResult UpdateMaterialsData(MaterialsExpense materials)
         {
-            var materialsExpenses = db.MaterialsExpenses.Include(m => m.Job);
-            var job = db.Jobs;
-            var materialsJobNumber = materials.JobID.ToString();
-
-            var materialsJobID = (from j in job
-                                  where j.JobNumber == materialsJobNumber
-                                  select
-                                        j.JobID
-                                 ).SingleOrDefault();
-            materials.JobID = Convert.ToInt32(materialsJobID);
+            
             materials.ItemNumberID = 1; //Hard coding for now because there will be future changes in the database
             if (ModelState.IsValid)
             {

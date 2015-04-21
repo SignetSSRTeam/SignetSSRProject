@@ -22,6 +22,27 @@ namespace SignetSSRProject.Controllers
         //// GET: HoursWorkeds
         public ActionResult Index()
         {
+            var jobs = db.Jobs;
+            var jobNum = (from j in jobs
+                          select new
+                          {
+                              j.JobID,
+                              j.JobNumber
+                          }).ToList();
+            JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
+            string jobNumbers = jsonSerializer.Serialize(jobNum);
+            ViewBag.jobNumbers = jobNumbers;
+
+            var employees = db.Employees;
+            var empNames = (from emp in employees
+                          select new
+                          {
+                              emp.EmployeeID,
+                              EmployeeName = emp.FirstName + " " + emp.LastName
+                          }).ToList();
+            string employeeNames = jsonSerializer.Serialize(empNames);
+            ViewBag.employeeNames = employeeNames;
+
             var hoursWorkeds = db.HoursWorkeds.Include(h => h.Employee).Include(h => h.ItemNumber).Include(h => h.Job);
             return View(hoursWorkeds.ToList());
         }
@@ -36,11 +57,11 @@ namespace SignetSSRProject.Controllers
             var hoursWorkedsData = (from hrs in hoursWorkeds
                                  select new
                                  {
-                                     hrs.Employee.FirstName,
-                                     hrs.Employee.LastName,
-                                     JobID = hrs.JobID,
+                                     hrs.HoursWorkedID,
+                                     EmployeeID = hrs.Employee.EmployeeID,
+                                     JobID = hrs.Job.JobID,
                                      hrs.ItemNumberID,
-                                     Date = SqlFunctions.DateName("month", hrs.Date) + " " +  SqlFunctions.DateName("day", hrs.Date) + ", " + SqlFunctions.DateName("year", hrs.Date),
+                                     Date = SqlFunctions.DateName("mm", hrs.Date) + " " +  SqlFunctions.DateName("day", hrs.Date) + ", " + SqlFunctions.DateName("year", hrs.Date),
                                      hrs.HoursWorkedRT,
                                      hrs.HoursWorkedOT
                                  }).ToList();
@@ -48,124 +69,137 @@ namespace SignetSSRProject.Controllers
             string output = jsonSerializer.Serialize(hoursWorkedsData);
             return Content(output, "application/json");
         }
+
+        //POST: /HoursWorked/InsertHoursWorkedData
+        [HttpPost]
+        public ContentResult InsertHoursWorkedsData(HoursWorked hoursWorked)
+        {
+            hoursWorked.ItemNumberID = 1; //Hard coding for now because there will be future changes in the database
+            TryValidateModel(hoursWorked); //Hack to ignore empty employee and job fields 
+
+            if (ModelState.IsValid)
+            {
+                db.HoursWorkeds.Add(hoursWorked);
+                db.SaveChanges();
+            }
+            else
+            {
+                string error = "";
+                foreach (ModelState modelState in ViewData.ModelState.Values)
+                {
+                    foreach (ModelError err in modelState.Errors)
+                    {
+                        error = error + " \n" + err.ErrorMessage;
+                    }
+                }
+                return Content("", "application/json");
+            }
+
+            //Form the hours worked data again for a single row and include the data conversions
+            var hoursWorkeds = db.HoursWorkeds.Include(h => h.Employee).Include(h => h.ItemNumber).Include(h => h.Job);
+            var hoursWorkedsData = (from hrs in hoursWorkeds
+                                    where hrs.HoursWorkedID == hoursWorked.HoursWorkedID
+                                    select new
+                                    {
+                                        hrs.HoursWorkedID,
+                                        EmployeeID = hrs.Employee.EmployeeID,
+                                        JobID = hrs.Job.JobID,
+                                        hrs.ItemNumberID,
+                                        Date = SqlFunctions.DateName("mm", hrs.Date) + " " + SqlFunctions.DateName("day", hrs.Date) + ", " + SqlFunctions.DateName("year", hrs.Date),
+                                        hrs.HoursWorkedRT,
+                                        hrs.HoursWorkedOT
+                                    }).SingleOrDefault();
             
+            JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
+            string output = jsonSerializer.Serialize(hoursWorkedsData);
+            return Content(output, "application/json");
+
         }
 
-        // GET: HoursWorkeds/Details/5
+        //POST: /HoursWorked/UpdateHoursWorkedData
+        [HttpPost]
+        public ContentResult UpdateHoursWorkedsData(HoursWorked hoursWorked)
+        {
+            hoursWorked.ItemNumberID = 1; //Hard coding for now because there will be future changes in the database
+            //TryValidateModel(hoursWorked); //Hack to ignore empty employee and job fields 
 
-        //public ActionResult Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    HoursWorked hoursWorked = db.HoursWorkeds.Find(id);
-        //    if (hoursWorked == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(hoursWorked);
-        //}
+            if (ModelState.IsValid)
+            {
+                db.Entry(hoursWorked).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            else
+            {
+                string error = "";
+                foreach (ModelState modelState in ViewData.ModelState.Values)
+                {
+                    foreach (ModelError err in modelState.Errors)
+                    {
+                        error = error + " \n" + err.ErrorMessage;
+                    }
+                }
+                return Content("", "application/json");
+            }
 
-        //// GET: HoursWorkeds/Create
-        //public ActionResult Create()
-        //{
-        //    ViewBag.EmployeeID = new SelectList(db.Employees, "EmployeeID", "FirstName");
-        //    ViewBag.ItemNumberID = new SelectList(db.ItemNumbers, "ItemNumberID", "Description");
-        //    ViewBag.JobID = new SelectList(db.Jobs, "JobID", "JobNumber");
-        //    return View();
-        //}
+            //Form the hours worked data again for a single row and include the data conversions
+            var hoursWorkeds = db.HoursWorkeds.Include(h => h.Employee).Include(h => h.ItemNumber).Include(h => h.Job);
+            var hoursWorkedsData = (from hrs in hoursWorkeds
+                                    where hrs.HoursWorkedID == hoursWorked.HoursWorkedID
+                                    select new
+                                    {
+                                        hrs.HoursWorkedID,
+                                        EmployeeID = hrs.Employee.EmployeeID,
+                                        JobID = hrs.Job.JobID,
+                                        hrs.ItemNumberID,
+                                        Date = SqlFunctions.DateName("mm", hrs.Date) + " " + SqlFunctions.DateName("day", hrs.Date) + ", " + SqlFunctions.DateName("year", hrs.Date),
+                                        hrs.HoursWorkedRT,
+                                        hrs.HoursWorkedOT
+                                    }).SingleOrDefault();
 
-        //// POST: HoursWorkeds/Create
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "HoursWorkedID,EmployeeID,JobID,ItemNumberID,Date,HoursWorkedRT,HoursWorkedOT")] HoursWorked hoursWorked)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.HoursWorkeds.Add(hoursWorked);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
+            JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
+            string output = jsonSerializer.Serialize(hoursWorkedsData);
+            return Content(output, "application/json");
 
-        //    ViewBag.EmployeeID = new SelectList(db.Employees, "EmployeeID", "FirstName", hoursWorked.EmployeeID);
-        //    ViewBag.ItemNumberID = new SelectList(db.ItemNumbers, "ItemNumberID", "Description", hoursWorked.ItemNumberID);
-        //    ViewBag.JobID = new SelectList(db.Jobs, "JobID", "JobNumber", hoursWorked.JobID);
-        //    return View(hoursWorked);
-        //}
+        }
 
-        //// GET: HoursWorkeds/Edit/5
-        //public ActionResult Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    HoursWorked hoursWorked = db.HoursWorkeds.Find(id);
-        //    if (hoursWorked == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    ViewBag.EmployeeID = new SelectList(db.Employees, "EmployeeID", "FirstName", hoursWorked.EmployeeID);
-        //    ViewBag.ItemNumberID = new SelectList(db.ItemNumbers, "ItemNumberID", "Description", hoursWorked.ItemNumberID);
-        //    ViewBag.JobID = new SelectList(db.Jobs, "JobID", "JobNumber", hoursWorked.JobID);
-        //    return View(hoursWorked);
-        //}
+        //POST: /HoursWorked/DeleteHoursWorkedData
+        [HttpPost]
+        public ContentResult DeleteHoursWorkedData(HoursWorked hoursWorked)
+        {
+            var hoursWorkedsData = db.HoursWorkeds.Include(h => h.Employee).Include(h => h.ItemNumber).Include(h => h.Job);
+            HoursWorked removeHrsWorked = db.HoursWorkeds.Find(hoursWorked.HoursWorkedID);
 
-        //// POST: HoursWorkeds/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "HoursWorkedID,EmployeeID,JobID,ItemNumberID,Date,HoursWorkedRT,HoursWorkedOT")] HoursWorked hoursWorked)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(hoursWorked).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    ViewBag.EmployeeID = new SelectList(db.Employees, "EmployeeID", "FirstName", hoursWorked.EmployeeID);
-        //    ViewBag.ItemNumberID = new SelectList(db.ItemNumbers, "ItemNumberID", "Description", hoursWorked.ItemNumberID);
-        //    ViewBag.JobID = new SelectList(db.Jobs, "JobID", "JobNumber", hoursWorked.JobID);
-        //    return View(hoursWorked);
-        //}
+            if (ModelState.IsValid)
+            {
+                db.HoursWorkeds.Remove(removeHrsWorked);
+                db.SaveChanges();
+            }
+            else
+            {
+                string error = "";
+                foreach (ModelState modelState in ViewData.ModelState.Values)
+                {
+                    foreach (ModelError err in modelState.Errors)
+                    {
+                        error = error + " \n" + err.ErrorMessage;
+                    }
+                }
+                return Content("", "application/json");
+            }
 
-        //// GET: HoursWorkeds/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    HoursWorked hoursWorked = db.HoursWorkeds.Find(id);
-        //    if (hoursWorked == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(hoursWorked);
-        //}
+            JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
+            string output = jsonSerializer.Serialize(removeHrsWorked);
+            return Content(output, "application/json");
 
-        //// POST: HoursWorkeds/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    HoursWorked hoursWorked = db.HoursWorkeds.Find(id);
-        //    db.HoursWorkeds.Remove(hoursWorked);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+        }
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
-   // }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+    }
 }

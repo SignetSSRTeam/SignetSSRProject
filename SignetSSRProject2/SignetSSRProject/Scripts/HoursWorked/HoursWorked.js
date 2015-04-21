@@ -25,27 +25,41 @@
             },
 
             insertItem: function (item) {
-                var HoursWorkedsData = JSON.stringify({ customer: JSON.stringify(item) })
                 return $.ajax({
                     type: "POST",
-                    url: "/HoursWorkeds/HoursWorkedsData",
+                    url: "/HoursWorkeds/InsertHoursWorkedsData",
                     data: item,
                     dataType: "json"
                 });
             },
 
-            updateItem: function (item) { },
+            updateItem: function (item) {
+                return $.ajax({
+                    type: "POST",
+                    url: "/HoursWorkeds/UpdateHoursWorkedsData",
+                    data: item,
+                    dataType: "json"
+                });
+            },
 
-            deleteItem: function (item) { },
+            deleteItem: function (item) {
+                return $.ajax({
+                    type: "POST",
+                    url: "/HoursWorkeds/DeleteHoursWorkedData",
+                    data: item,
+                    dataType: "json"
+                });
+            },
         },
 
         fields: [
-            { name: "FirstName", type: "text", width: 50},
-            { name: "LastName", type: "text", width: 50 }, 
-            { title: "Job ID", name: "JobID", type: "text", width: 50 },
-            { title: "Date", name: "Date", type: "text", width: 75 },
-            { title: "HoursWorkedRT", name: "HoursWorkedRT", type: "text", width: 50, itemTemplate: function (value) { return value.toFixed(2); } },
-            { title: "HoursWorkedOT", name: "HoursWorkedOT", type: "text", width: 60, itemTemplate: function (value) { return value.toFixed(2); }  },
+            { title: "ID", name: "HoursWorkedID", width: 25, align: "center" },
+            { title: "Employee Name", name: "EmployeeID", type: "select", items: listEmployeeName, valueField: "EmployeeID", textField: "EmployeeName", width: 60, align: "center" },
+            { title: "Job Number", name: "JobID", type: "select", items: listJobNumber, valueField: "JobID", textField: "JobNumber", width: 50, align: "center" },
+            { title: "Item Number", name: "ItemNumberID", type: "text", width: 50, align: "center" },
+            { title: "Date", name: "Date", type: "text", width: 50, align: "center" },
+            { title: "HoursWorkedRT", name: "HoursWorkedRT", type: "text", width: 50, align: "center", itemTemplate: function (value) { return value.toFixed(2); } },
+            { title: "HoursWorkedOT", name: "HoursWorkedOT", type: "text", width: 60, align: "center", itemTemplate: function (value) { return value.toFixed(2); }  },
             { type: "control" }
         ]
     });
