@@ -8,7 +8,6 @@ TABLE CREATION SCRIPT
 /*************************
 CREATE DATABASE AND TABLES
 **************************/
-
 */
 
 PRINT 'BEGIN SCRIPT EXECUTION'
@@ -81,7 +80,8 @@ CREATE TABLE Rate (
 	JobType NVARCHAR(40) NOT NULL,
 	Supervisor Bit,
 	RateRT MONEY NOT NULL,
-	RateOT MONEY NOT NULL
+	RateOT MONEY NOT NULL,
+	CostOption DECIMAL NULL
 	)
 GO
 
@@ -98,60 +98,6 @@ CREATE TABLE Attendance (
 	)
 GO
 
---DROP TABLE HoursWorked
-CREATE TABLE HoursWorked (
-	HoursWorkedID INT IDENTITY (1,1) PRIMARY KEY,
-	EmployeeID INT NOT NULL,
-	JobID INT NOT NULL,
-	ItemNumberID INT NULL,
-	Date DATETIME NOT NULL,
-	HoursWorkedRT FLOAT NULL,
-	HoursWorkedOT FLOAT NULL,
-	JobDescription NVARCHAR (255) null
-	)
-GO
-
---DROP TABLE Job
-CREATE TABLE Job (
-	JobID INT IDENTITY (1,1) PRIMARY KEY,
-	JobNumber VARCHAR(100) NOT NULL,
-	CustomerID INT NOT NULL,
-	RateID INT NOT NULL,
-	VesselName VARCHAR(100) NOT NULL,
-	ItemNumber int NULL,
-	Priority NVARCHAR NULL,
-	Status BIT NULL,
-	Description VARCHAR(100) NULL,
-	StartDate DATETIME NULL,
-	EndDate DATETIME NULL
-	)
-GO
-
---DROP TABLE ItemNumber
-CREATE TABLE ItemNumber (
-	ItemNumberID INT IDENTITY (1,1) PRIMARY KEY,
-	ItemNumber INT NOT NULL,
-	Description VARCHAR(100) NULL
-	)
-GO
-
---DROP TABLE MaterialsExpense
-CREATE TABLE MaterialsExpense (
-	MaterialsExpenseID INT IDENTITY (1,1) PRIMARY KEY,
-	Expense MONEY NOT NULL,
-	JobID INT NOT NULL,
-	ItemNumberID INT NULL, -- Remember an assumption/requirement is that each expense can be related to a particular task/ItemNumber
-	ExpenseDate DATETIME Null,
-	InvoiceReceived BIT Null,
-	ExpenseDescription NVARCHAR(50) NULL,
-	PONumber CHAR(7) NULL,
-	InvoiceNumber CHAR(8) NULL,
-	TaxIncluded BIT NULL,
-	TaxPercentage DECIMAL NULL,
-	MarkupPercentage DECIMAL NULL
-	)
-GO
-
 --DROP TABLE WageHistory
 CREATE TABLE WageHistory (
 	WageHistoryID INT IDENTITY (1,1) PRIMARY KEY,
@@ -163,6 +109,56 @@ CREATE TABLE WageHistory (
 	IsCurrent BIT NOT NULL
 	)
 GO
+
+--DROP TABLE HoursWorked
+CREATE TABLE HoursWorked (
+	HoursWorkedID INT IDENTITY (1,1) PRIMARY KEY,
+	EmployeeID INT NOT NULL,
+	JobID INT NOT NULL,
+	ItemNumber INT NULL,
+	WageHistoryID INT NULL,
+	Date DATETIME NOT NULL,
+	HoursWorkedRT DECIMAL NULL,
+	HoursWorkedOT DECIMAL NULL,
+	JobDescription NVARCHAR (255) null
+	)
+GO
+
+--DROP TABLE Job
+CREATE TABLE Job (
+	JobID INT IDENTITY (1,1) PRIMARY KEY,
+	JobNumber VARCHAR(100) NOT NULL,
+	CustomerID INT NOT NULL,
+	RateID INT NOT NULL,
+	VesselName VARCHAR(100) NOT NULL,
+	ItemNumber INT NULL,
+	Priority NVARCHAR NULL,
+	Status BIT NULL,
+	Description VARCHAR(100) NULL,
+	StartDate DATETIME NULL,
+	EndDate DATETIME NULL
+	)
+GO
+
+
+--DROP TABLE MaterialsExpense
+CREATE TABLE MaterialsExpense (
+	MaterialsExpenseID INT IDENTITY (1,1) PRIMARY KEY,
+	Expense MONEY NOT NULL,
+	JobID INT NOT NULL,
+	ItemNumber INT NULL, 
+	ExpenseDate DATETIME Null,
+	InvoiceReceived BIT Null,
+	ExpenseDescription NVARCHAR(50) NULL,
+	PONumber CHAR(7) NULL,
+	InvoiceNumber CHAR(8) NULL,
+	TaxIncluded BIT NULL,
+	TaxPercentage DECIMAL NULL,
+	MarkupPercentage DECIMAL NULL
+	)
+GO
+
+
 
 PRINT 'Tables Created'
 
@@ -257,31 +253,21 @@ GO
 PRINT ('table Job Inserted');
 GO
 
-INSERT INTO ItemNumber(ItemNumber,Description) 
-VALUES(1,'ItemA');
-INSERT INTO ItemNumber(ItemNumber,Description) 
-VALUES(2,'ItemB');
-INSERT INTO ItemNumber(ItemNumber,Description) 
-VALUES(3,'ItemC');
-PRINT ('table ItemNumber Inserted');
-GO
-SELECT * FROM ItemNumber
-
-INSERT INTO HoursWorked(EmployeeID,JobID,ItemNumberID,Date,HoursWorkedRT, HoursWorkedOT,JobDescription) 
+INSERT INTO HoursWorked(EmployeeID,JobID,ItemNumber,Date,HoursWorkedRT, HoursWorkedOT,JobDescription) 
 VALUES(1,1,1,'3-4-2015',7.5,0,'description1');
-INSERT INTO HoursWorked(EmployeeID,JobID,ItemNumberID,Date,HoursWorkedRT, HoursWorkedOT,JobDescription) 
+INSERT INTO HoursWorked(EmployeeID,JobID,ItemNumber,Date,HoursWorkedRT, HoursWorkedOT,JobDescription) 
 VALUES(2,2,2,'3-4-2015',7.75,0,'description2');
-INSERT INTO HoursWorked(EmployeeID,JobID,ItemNumberID,Date,HoursWorkedRT, HoursWorkedOT,JobDescription) 
+INSERT INTO HoursWorked(EmployeeID,JobID,ItemNumber,Date,HoursWorkedRT, HoursWorkedOT,JobDescription) 
 VALUES(3,3,3,'3-4-2015',7.90,0,'description3');
 GO
 PRINT ('table HoursWorked Inserted');
 GO
 
-INSERT INTO MaterialsExpense(Expense,JobID,ItemNumberID,ExpenseDate,InvoiceReceived,ExpenseDescription,PONumber,InvoiceNumber,TaxIncluded,TaxPercentage,MarkUpPercentage)
+INSERT INTO MaterialsExpense(Expense,JobID,ItemNumber,ExpenseDate,InvoiceReceived,ExpenseDescription,PONumber,InvoiceNumber,TaxIncluded,TaxPercentage,MarkUpPercentage)
 VALUES(1000,1,1,3/3/2015,1,Null,'1234567','00003746',1,6,15);
-INSERT INTO MaterialsExpense(Expense,JobID,ItemNumberID,ExpenseDate,InvoiceReceived,ExpenseDescription,PONumber,InvoiceNumber,TaxIncluded,TaxPercentage,MarkUpPercentage)
+INSERT INTO MaterialsExpense(Expense,JobID,ItemNumber,ExpenseDate,InvoiceReceived,ExpenseDescription,PONumber,InvoiceNumber,TaxIncluded,TaxPercentage,MarkUpPercentage)
 VALUES(20000,2,2,4/4/2014,0,Null,'3747367','93847612',1,6,12);
-INSERT INTO MaterialsExpense(Expense,JobID,ItemNumberID,ExpenseDate,InvoiceReceived,ExpenseDescription,PONumber,InvoiceNumber,TaxIncluded,TaxPercentage,MarkUpPercentage)
+INSERT INTO MaterialsExpense(Expense,JobID,ItemNumber,ExpenseDate,InvoiceReceived,ExpenseDescription,PONumber,InvoiceNumber,TaxIncluded,TaxPercentage,MarkUpPercentage)
 VALUES(333333,3,3,3/3/2015,Null,'description1','1237654','09090909',1,6,15);
 GO
 PRINT ('table MaterialsExpense Inserted');
@@ -323,23 +309,12 @@ ADD CONSTRAINT FK_HoursWorked_Job
 FOREIGN KEY (JobID) REFERENCES Job(JobID)
 GO
 
---ALTER TABLE HoursWorked DROP CONSTRAINT FK_HoursWorked_ItemNumber
-ALTER TABLE HoursWorked
-ADD CONSTRAINT FK_HoursWorked_ItemNumber
-FOREIGN KEY (ItemNumberID) REFERENCES ItemNumber(ItemNumberID)
-GO
-
 --ALTER TABLE MaterialsExpense DROP CONSTRAINT FK_MaterialsExpense_Job
 ALTER TABLE MaterialsExpense
 ADD CONSTRAINT FK_MaterialsExpense_Job
 FOREIGN KEY (JobID) REFERENCES Job(JobID)
 GO
 
---ALTER TABLE MaterialsExpense DROP CONSTRAINT FK_MaterialsExpense_ItemNumber
-ALTER TABLE MaterialsExpense
-ADD CONSTRAINT FK_MaterialsExpense_ItemNumber
-FOREIGN KEY (ItemNumberID) REFERENCES ItemNumber(ItemNumberID)
-GO
 
 --ALTER TABLE Attendance DROP CONSTRAINT FK_Attendance_Employee
 ALTER TABLE Attendance
