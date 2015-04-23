@@ -31,7 +31,6 @@ $(function () {
 
             insertItem: function (item) {
                 delete item.MaterialsExpenseID;
-                return "";
                 return $.ajax({
                     type: "POST",
                     url: "/Materials/InsertMaterialsData",

@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SignetSSRProject.Models;
+using System.Web.Script.Serialization;
+using System.Data.Entity.SqlServer;
 
 namespace SignetSSRProject.Controllers
 {
@@ -175,10 +177,12 @@ namespace SignetSSRProject.Controllers
         }
 
         public ActionResult getWageHistory(int? id )
-        {
-           List<WageHistory> list=db.WageHistories.Where(x => x.EmployeeID == id && x.IsCurrent).ToList();
-           WageHistory w = list[0];
+        {            
+            ViewBag.employeeID = id;
 
+            List<WageHistory> list=db.WageHistories.Include(x => x.Employee).Where(x => x.EmployeeID == id).ToList();
+            WageHistory w = list[0];
+            
             return PartialView("_getWageHistory",w);
         }
 
@@ -205,5 +209,139 @@ namespace SignetSSRProject.Controllers
             //return RedirectToAction("Edit", new { Id = wageHistory.EmployeeID, @target="parent"});
 
         }
+
+        // GET: /Employee/WageHistoryData
+        [HttpGet]
+        public ContentResult WageHistoryData(int? employeeID)
+        {
+            var wageHistory = db.WageHistories;
+            var wageHistoryData = (from wh in wageHistory
+                                   where wh.EmployeeID == employeeID
+                                 select new
+                                 {
+                                     wh.WageHistoryID,
+                                     wh.WageRT,
+                                     wh.WageOT,
+                                     DateStart = wh.DateStart == null ? null: SqlFunctions.DateName("mm", wh.DateStart) + " " + SqlFunctions.DateName("day", wh.DateStart) + ", " + SqlFunctions.DateName("year", wh.DateStart),
+                                     DateEnd = wh.DateEnd == null ? null : SqlFunctions.DateName("mm", wh.DateEnd) + " " + SqlFunctions.DateName("day", wh.DateEnd) + ", " + SqlFunctions.DateName("year", wh.DateEnd),
+                                     wh.IsCurrent
+                                 }).ToList();
+            JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
+            string output = jsonSerializer.Serialize(wageHistoryData);
+            return Content(output, "application/json");
+        }
+
+        // POST: /Employee/InsertWageHistoryData
+        [HttpPost]
+        public ContentResult InsertWageHistoryData(WageHistory wageHistory)
+        {
+                        
+            if (ModelState.IsValid)
+            {
+                db.WageHistories.Add(wageHistory);
+                db.SaveChanges();
+            }
+            else
+            {
+                string error = "";
+                foreach (ModelState modelState in ViewData.ModelState.Values)
+                {
+                    foreach (ModelError err in modelState.Errors)
+                    {
+                        error = error + " \n" + err.ErrorMessage;
+                    }
+                }
+                return Content("", "application/json");
+            }
+
+            var wageHistories = db.WageHistories;
+            var wageHistoryData = (from wh in wageHistories
+                                   where wh.WageHistoryID == wageHistory.WageHistoryID
+                                   select new
+                                   {
+                                       wh.WageHistoryID,
+                                       wh.WageRT,
+                                       wh.WageOT,
+                                       DateStart = wh.DateStart == null ? null : SqlFunctions.DateName("mm", wh.DateStart) + " " + SqlFunctions.DateName("day", wh.DateStart) + ", " + SqlFunctions.DateName("year", wh.DateStart),
+                                       DateEnd = wh.DateEnd == null ? null : SqlFunctions.DateName("mm", wh.DateEnd) + " " + SqlFunctions.DateName("day", wh.DateEnd) + ", " + SqlFunctions.DateName("year", wh.DateEnd),
+                                       wh.IsCurrent
+                                   }).SingleOrDefault();
+
+            JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
+            string output = jsonSerializer.Serialize(wageHistoryData);
+            return Content(output, "application/json");
+        }
+
+        // POST: /Employee/UpdateWageHistoryData
+        [HttpPost]
+        public ContentResult UpdateWageHistoryData(WageHistory wageHistory)
+        {
+
+            if (ModelState.IsValid)
+            {
+                db.Entry(wageHistory).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            else
+            {
+                string error = "";
+                foreach (ModelState modelState in ViewData.ModelState.Values)
+                {
+                    foreach (ModelError err in modelState.Errors)
+                    {
+                        error = error + " \n" + err.ErrorMessage;
+                    }
+                }
+                return Content("", "application/json");
+            }
+
+            var wageHistories = db.WageHistories;
+            var wageHistoryData = (from wh in wageHistories
+                                   where wh.WageHistoryID == wageHistory.WageHistoryID
+                                   select new
+                                   {
+                                       wh.WageHistoryID,
+                                       wh.WageRT,
+                                       wh.WageOT,
+                                       DateStart = wh.DateStart == null ? null : SqlFunctions.DateName("mm", wh.DateStart) + " " + SqlFunctions.DateName("day", wh.DateStart) + ", " + SqlFunctions.DateName("year", wh.DateStart),
+                                       DateEnd = wh.DateEnd == null ? null : SqlFunctions.DateName("mm", wh.DateEnd) + " " + SqlFunctions.DateName("day", wh.DateEnd) + ", " + SqlFunctions.DateName("year", wh.DateEnd),
+                                       wh.IsCurrent
+                                   }).SingleOrDefault();
+
+            JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
+            string output = jsonSerializer.Serialize(wageHistoryData);
+            return Content(output, "application/json");
+        }
+
+        // POST: /Employee/DeleteWageHistoryData
+        [HttpPost]
+        public ContentResult DeleteWageHistoryData(WageHistory wageHistory)
+        {
+            var wageHistoryData = db.WageHistories;
+            WageHistory removeWageHistory = db.WageHistories.Find(wageHistory.WageHistoryID);
+
+            if (ModelState.IsValid)
+            {
+                db.WageHistories.Remove(removeWageHistory);
+                db.SaveChanges();
+            }
+            else
+            {
+                string error = "";
+                foreach (ModelState modelState in ViewData.ModelState.Values)
+                {
+                    foreach (ModelError err in modelState.Errors)
+                    {
+                        error = error + " \n" + err.ErrorMessage;
+                    }
+                }
+                return Content("", "application/json");
+            }
+            
+            JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
+            string output = jsonSerializer.Serialize(removeWageHistory);
+            return Content(output, "application/json");
+        }
+
     }
 }

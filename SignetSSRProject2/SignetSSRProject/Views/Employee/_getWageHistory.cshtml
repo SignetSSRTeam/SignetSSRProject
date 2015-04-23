@@ -8,16 +8,35 @@
 
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h4 class="modal-title" id="myModalLabel">Edit Wage History</h4>
+    <h4 class="modal-title" id="myModalLabel">Edit Wage History - @Html.DisplayFor(x => x.Employee.FirstName) @Html.DisplayFor(x => x.Employee.LastName)</h4>
 </div>
 <hr />
+
+<style type="text/css">
+    #jsGrid {
+        font-size: 11px;
+    }
+</style>
+
+<script>
+    var employeeID = '@ViewBag.employeeID';
+</script>
+
+<script src="/Scripts/Employees/wagehistory.js"></script>
+
+<div id="jsGrid">
+
+</div>
 
 @using (Html.BeginForm("saveWageHistory", "Employee", FormMethod.Post, new { @class = "modal-form", @role = "form" }))
 {
     @Html.ValidationSummary()
 
     <div class="modal-body">
-        <div class="form-horizontal">
+
+        
+
+        @*<div class="form-horizontal">
             <div>
                 @Html.LabelFor(x => x.DateStart, htmlAttributes: new { @class = "control-label col-md-3" })
                 <div class="form-group">
@@ -49,7 +68,7 @@
             @Html.HiddenFor(x => x.WageHistoryID)
             @Html.HiddenFor(x => x.EmployeeID)
             @Html.HiddenFor(x => x.IsCurrent)
-        </div>
+        </div>*@
     </div>
     <hr />
     <div class="modal-footer">
