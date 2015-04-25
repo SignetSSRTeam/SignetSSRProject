@@ -30,7 +30,7 @@ namespace SignetSSRProject.Controllers
             string jobNumbers = jsonSerializer.Serialize(jobNum);
             ViewBag.jobNumbers = jobNumbers;
 
-            var materialsexpenses = db.MaterialsExpenses.Include(m => m.ItemNumber).Include(m => m.Job);
+            var materialsexpenses = db.MaterialsExpenses.Include(m => m.Job);
             
             return View(materialsexpenses.ToList());
         }
@@ -38,14 +38,14 @@ namespace SignetSSRProject.Controllers
         // GET: /Materials/MaterialsData
         public ContentResult MaterialsData()
         {
-            var materialsExpenses = db.MaterialsExpenses.Include(m => m.ItemNumber).Include(m => m.Job);
+            var materialsExpenses = db.MaterialsExpenses.Include(m => m.Job);
             var materialsData = (from mat in materialsExpenses
                                  select new
                                  {
                                      mat.MaterialsExpenseID,
                                      mat.Expense,
                                      JobID = mat.Job.JobID,
-                                     mat.ItemNumberID,
+                                     mat.ItemNumber,
                                      mat.ExpenseDescription,
                                      mat.PONumber,
                                      mat.InvoiceNumber,
@@ -64,7 +64,7 @@ namespace SignetSSRProject.Controllers
         {
             var materialsExpenses = db.MaterialsExpenses.Include(m => m.Job);
             var job = db.Jobs;
-            materials.ItemNumberID = 1; //Hard coding for now because there will be future changes in the database
+            materials.ItemNumber = 1; //Hard coding for now because there will be future changes in the database
             if (ModelState.IsValid)
             {
                 db.MaterialsExpenses.Add(materials);
@@ -94,7 +94,7 @@ namespace SignetSSRProject.Controllers
         public ContentResult UpdateMaterialsData(MaterialsExpense materials)
         {
             
-            materials.ItemNumberID = 1; //Hard coding for now because there will be future changes in the database
+            materials.ItemNumber = 1; //Hard coding for now because there will be future changes in the database
             if (ModelState.IsValid)
             {
                 db.Entry(materials).State = EntityState.Modified;

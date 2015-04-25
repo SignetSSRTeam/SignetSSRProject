@@ -253,12 +253,12 @@ GO
 PRINT ('table Job Inserted');
 GO
 
-INSERT INTO HoursWorked(EmployeeID,JobID,ItemNumber,Date,HoursWorkedRT, HoursWorkedOT,JobDescription) 
-VALUES(1,1,1,'3-4-2015',7.5,0,'description1');
-INSERT INTO HoursWorked(EmployeeID,JobID,ItemNumber,Date,HoursWorkedRT, HoursWorkedOT,JobDescription) 
-VALUES(2,2,2,'3-4-2015',7.75,0,'description2');
-INSERT INTO HoursWorked(EmployeeID,JobID,ItemNumber,Date,HoursWorkedRT, HoursWorkedOT,JobDescription) 
-VALUES(3,3,3,'3-4-2015',7.90,0,'description3');
+INSERT INTO HoursWorked(EmployeeID,JobID,ItemNumber,WageHistoryID,Date,HoursWorkedRT, HoursWorkedOT,JobDescription) 
+VALUES(1,1,1,1,'3-4-2015',7.5,0,'description1');
+INSERT INTO HoursWorked(EmployeeID,JobID,ItemNumber,WageHistoryID,Date,HoursWorkedRT, HoursWorkedOT,JobDescription) 
+VALUES(2,2,2,2,'3-4-2015',7.75,0,'description2');
+INSERT INTO HoursWorked(EmployeeID,JobID,ItemNumber,WageHistoryID,Date,HoursWorkedRT, HoursWorkedOT,JobDescription) 
+VALUES(3,3,3,3,'3-4-2015',7.90,0,'description3');
 GO
 PRINT ('table HoursWorked Inserted');
 GO
@@ -307,6 +307,12 @@ GO
 ALTER TABLE HoursWorked
 ADD CONSTRAINT FK_HoursWorked_Job
 FOREIGN KEY (JobID) REFERENCES Job(JobID)
+GO
+
+--ALTER TABLE HoursWorked DROP CONSTRAINT FK_HoursWorked_WageHistory
+ALTER TABLE HoursWorked
+ADD CONSTRAINT FK_HoursWorked_WageHistory
+FOREIGN KEY (WageHistoryID) REFERENCES WageHistory(WageHistoryID)
 GO
 
 --ALTER TABLE MaterialsExpense DROP CONSTRAINT FK_MaterialsExpense_Job

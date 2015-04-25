@@ -43,7 +43,7 @@ namespace SignetSSRProject.Controllers
             string employeeNames = jsonSerializer.Serialize(empNames);
             ViewBag.employeeNames = employeeNames;
 
-            var hoursWorkeds = db.HoursWorkeds.Include(h => h.Employee).Include(h => h.ItemNumber).Include(h => h.Job);
+            var hoursWorkeds = db.HoursWorkeds.Include(h => h.Employee).Include(h => h.Job);
             return View(hoursWorkeds.ToList());
         }
 
@@ -53,17 +53,18 @@ namespace SignetSSRProject.Controllers
 
         public ContentResult HoursWorkedsData()
         {
-            var hoursWorkeds = db.HoursWorkeds.Include(h => h.Employee).Include(h => h.ItemNumber).Include(h => h.Job);
+            var hoursWorkeds = db.HoursWorkeds.Include(h => h.Employee).Include(h => h.Job);
             var hoursWorkedsData = (from hrs in hoursWorkeds
                                  select new
                                  {
                                      hrs.HoursWorkedID,
                                      EmployeeID = hrs.Employee.EmployeeID,
                                      JobID = hrs.Job.JobID,
-                                     hrs.ItemNumberID,
+                                     hrs.ItemNumber,
                                      Date = SqlFunctions.DateName("mm", hrs.Date) + " " +  SqlFunctions.DateName("day", hrs.Date) + ", " + SqlFunctions.DateName("year", hrs.Date),
                                      hrs.HoursWorkedRT,
-                                     hrs.HoursWorkedOT
+                                     hrs.HoursWorkedOT,
+                                     hrs.JobDescription
                                  }).ToList();
             JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
             string output = jsonSerializer.Serialize(hoursWorkedsData);
@@ -74,8 +75,10 @@ namespace SignetSSRProject.Controllers
         [HttpPost]
         public ContentResult InsertHoursWorkedsData(HoursWorked hoursWorked)
         {
-            hoursWorked.ItemNumberID = 1; //Hard coding for now because there will be future changes in the database
             TryValidateModel(hoursWorked); //Hack to ignore empty employee and job fields 
+
+            var wageHistoryID = db.WageHistories.Where(x => x.EmployeeID == hoursWorked.EmployeeID && x.IsCurrent == true).Select(x => x.WageHistoryID).FirstOrDefault();
+            hoursWorked.WageHistoryID = wageHistoryID;
 
             if (ModelState.IsValid)
             {
@@ -96,7 +99,7 @@ namespace SignetSSRProject.Controllers
             }
 
             //Form the hours worked data again for a single row and include the data conversions
-            var hoursWorkeds = db.HoursWorkeds.Include(h => h.Employee).Include(h => h.ItemNumber).Include(h => h.Job);
+            var hoursWorkeds = db.HoursWorkeds.Include(h => h.Employee).Include(h => h.Job);
             var hoursWorkedsData = (from hrs in hoursWorkeds
                                     where hrs.HoursWorkedID == hoursWorked.HoursWorkedID
                                     select new
@@ -104,10 +107,11 @@ namespace SignetSSRProject.Controllers
                                         hrs.HoursWorkedID,
                                         EmployeeID = hrs.Employee.EmployeeID,
                                         JobID = hrs.Job.JobID,
-                                        hrs.ItemNumberID,
+                                        hrs.ItemNumber,
                                         Date = SqlFunctions.DateName("mm", hrs.Date) + " " + SqlFunctions.DateName("day", hrs.Date) + ", " + SqlFunctions.DateName("year", hrs.Date),
                                         hrs.HoursWorkedRT,
-                                        hrs.HoursWorkedOT
+                                        hrs.HoursWorkedOT,
+                                        hrs.JobDescription
                                     }).SingleOrDefault();
             
             JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
@@ -120,8 +124,8 @@ namespace SignetSSRProject.Controllers
         [HttpPost]
         public ContentResult UpdateHoursWorkedsData(HoursWorked hoursWorked)
         {
-            hoursWorked.ItemNumberID = 1; //Hard coding for now because there will be future changes in the database
-            //TryValidateModel(hoursWorked); //Hack to ignore empty employee and job fields 
+            var wageHistoryID = db.WageHistories.Where(x => x.EmployeeID == hoursWorked.EmployeeID && x.IsCurrent == true).Select(x => x.WageHistoryID).FirstOrDefault();
+            hoursWorked.WageHistoryID = wageHistoryID;
 
             if (ModelState.IsValid)
             {
@@ -150,10 +154,11 @@ namespace SignetSSRProject.Controllers
                                         hrs.HoursWorkedID,
                                         EmployeeID = hrs.Employee.EmployeeID,
                                         JobID = hrs.Job.JobID,
-                                        hrs.ItemNumberID,
+                                        hrs.ItemNumber,
                                         Date = SqlFunctions.DateName("mm", hrs.Date) + " " + SqlFunctions.DateName("day", hrs.Date) + ", " + SqlFunctions.DateName("year", hrs.Date),
                                         hrs.HoursWorkedRT,
-                                        hrs.HoursWorkedOT
+                                        hrs.HoursWorkedOT,
+                                        hrs.JobDescription
                                     }).SingleOrDefault();
 
             JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();

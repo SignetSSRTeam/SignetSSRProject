@@ -62,7 +62,7 @@ $(function () {
             { title: "ID", name: "MaterialsExpenseID", width: 25, align: "center"},
             { name: "Expense", type: "text", width: 50, itemTemplate: function (value) { return "$" + value.toFixed(2); }, align: "center" },
             { title: "Job #", name: "JobID", type: "select", items: listJobNumber, valueField: "JobID", textField: "JobNumber", width: 50, align: "center" },
-            { title: "Item Number", name: "ItemNumberID", type: "number", width: 50, align: "center" },
+            { title: "Item Number", name: "ItemNumber", type: "number", width: 50, align: "center" },
             { title: "Description", name: "ExpenseDescription", type: "text", width: 75, align: "center" },
             { title: "PO Number", name: "PONumber", type: "text", width: 50, align: "center" },
             { title: "Invoice Number", name: "InvoiceNumber", type: "text", width: 60, align: "center" },

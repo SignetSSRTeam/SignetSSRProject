@@ -186,9 +186,6 @@
       <DependentUpon>SSRDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ItemNumber.cs">
-      <DependentUpon>SSRDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Job.cs">
       <DependentUpon>SSRDataModel.tt</DependentUpon>
     </Compile>
