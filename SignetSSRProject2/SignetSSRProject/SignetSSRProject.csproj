@@ -189,6 +189,9 @@
     <Compile Include="Models\Job.cs">
       <DependentUpon>SSRDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\LoginAudit.cs">
+      <DependentUpon>SSRDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MaterialsExpense.cs">
       <DependentUpon>SSRDataModel.tt</DependentUpon>
     </Compile>
@@ -327,6 +330,7 @@
     <Content Include="Views\Attendance\Details.cshtml" />
     <Content Include="Views\Attendance\Edit.cshtml" />
     <Content Include="Views\Attendance\Index.cshtml" />
+    <Content Include="Views\Account\LoginAudit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

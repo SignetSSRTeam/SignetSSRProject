@@ -82,6 +82,15 @@
           <Property Name="StartDate" Type="datetime" />
           <Property Name="EndDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="LoginAudit">
+          <Key>
+            <PropertyRef Name="LoginAuditID" />
+          </Key>
+          <Property Name="LoginAuditID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar(max)" />
+          <Property Name="Activity" Type="nvarchar" MaxLength="20" />
+          <Property Name="TimeRecorded" Type="datetime" />
+        </EntityType>
         <EntityType Name="MaterialsExpense">
           <Key>
             <PropertyRef Name="MaterialsExpenseID" />
@@ -224,6 +233,7 @@
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HoursWorked" EntityType="Self.HoursWorked" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Job" EntityType="Self.Job" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoginAudit" EntityType="Self.LoginAudit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MaterialsExpense" EntityType="Self.MaterialsExpense" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rate" EntityType="Self.Rate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WageHistory" EntityType="Self.WageHistory" Schema="dbo" store:Type="Tables" />
@@ -342,7 +352,7 @@
           <Property Name="CustomerID" Type="Int32" Nullable="false" />
           <Property Name="RateID" Type="Int32" Nullable="false" />
           <Property Name="VesselName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Priority" Type="String" />
+          <Property Name="Priority" Type="String" MaxLength="1" Unicode="true" FixedLength="false" />
           <Property Name="Status" Type="Boolean" />
           <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="StartDate" Type="DateTime" Precision="3" />
@@ -522,6 +532,7 @@
             <End Role="WageHistory" EntitySet="WageHistories" />
             <End Role="HoursWorked" EntitySet="HoursWorkeds" />
           </AssociationSet>
+          <EntitySet Name="LoginAudits" EntityType="ISC567_SSRS_DatabaseModel.LoginAudit" />
         </EntityContainer>
         <Association Name="FK_HoursWorked_WageHistory">
           <End Type="ISC567_SSRS_DatabaseModel.WageHistory" Role="WageHistory" Multiplicity="0..1" />
@@ -535,6 +546,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="LoginAudit">
+          <Key>
+            <PropertyRef Name="LoginAuditID" />
+          </Key>
+          <Property Name="LoginAuditID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Activity" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="TimeRecorded" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -663,6 +683,16 @@
                 <ScalarProperty Name="DateStart" ColumnName="DateStart" />
                 <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
                 <ScalarProperty Name="IsCurrent" ColumnName="IsCurrent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoginAudits">
+            <EntityTypeMapping TypeName="ISC567_SSRS_DatabaseModel.LoginAudit">
+              <MappingFragment StoreEntitySet="LoginAudit">
+                <ScalarProperty Name="TimeRecorded" ColumnName="TimeRecorded" />
+                <ScalarProperty Name="Activity" ColumnName="Activity" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="LoginAuditID" ColumnName="LoginAuditID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

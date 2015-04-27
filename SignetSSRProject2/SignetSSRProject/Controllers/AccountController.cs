@@ -15,6 +15,8 @@ namespace SignetSSRProject.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private ISC567_SSRS_DatabaseEntities db = new ISC567_SSRS_DatabaseEntities();
+
         public AccountController()
             : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())),
                    new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext())))
@@ -91,6 +93,7 @@ namespace SignetSSRProject.Controllers
                 if (user != null)
                 {
                     await SignInAsync(user, model.RememberMe);
+                    RecordLoginAudit(user, "login");
                     return RedirectToLocal(returnUrl);
                 }
                 else
@@ -152,6 +155,14 @@ namespace SignetSSRProject.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        // GET: /Account/LoginAudit
+        [Authorize(Roles = SSRCommon.Roles.ADMINISTRATOR_ROLE)]
+        public ActionResult LoginAudit()
+        {
+            var loginAudit = db.LoginAudits;
+            return View(loginAudit.ToList());
         }
 
         //
@@ -348,7 +359,10 @@ namespace SignetSSRProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            ApplicationUser logoffUser = new ApplicationUser { Id = User.Identity.GetUserId(), UserName = User.Identity.GetUserName()};
+            
             AuthenticationManager.SignOut();
+            RecordLoginAudit(logoffUser, "logoff");
             return RedirectToAction("Login", "Account");
         }
 
@@ -492,6 +506,26 @@ namespace SignetSSRProject.Controllers
                 return false;
             }
                
+        }
+
+        private void RecordLoginAudit(ApplicationUser user, string activity){
+            LoginAudit loginAudit = new LoginAudit { UserName = user.UserName, TimeRecorded = DateTime.Now, Activity = activity };
+            
+            if (ModelState.IsValid)
+            {
+                db.LoginAudits.Add(loginAudit);
+                db.SaveChanges();
+            }
+            else {
+                string error = "";
+                foreach (ModelState modelState in ViewData.ModelState.Values)
+                {
+                    foreach (ModelError err in modelState.Errors)
+                    {
+                        error = error + " \n" + err.ErrorMessage;
+                    }
+                }
+            }
         }
         
         #endregion

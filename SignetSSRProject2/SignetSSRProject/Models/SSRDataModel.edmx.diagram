@@ -21,6 +21,7 @@
         <AssociationConnector Association="ISC567_SSRS_DatabaseModel.FK_Job_Rate" ManuallyRouted="false" />
         <AssociationConnector Association="ISC567_SSRS_DatabaseModel.FK_MaterialsExpense_Job" ManuallyRouted="false" />
         <AssociationConnector Association="ISC567_SSRS_DatabaseModel.FK_HoursWorked_WageHistory" />
+        <EntityTypeShape EntityType="ISC567_SSRS_DatabaseModel.LoginAudit" Width="1.5" PointX="3.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

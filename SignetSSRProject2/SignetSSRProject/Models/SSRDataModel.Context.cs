@@ -48,6 +48,8 @@ public partial class ISC567_SSRS_DatabaseEntities : DbContext
 
     public virtual DbSet<WageHistory> WageHistories { get; set; }
 
+    public virtual DbSet<LoginAudit> LoginAudits { get; set; }
+
 }
 
 }
