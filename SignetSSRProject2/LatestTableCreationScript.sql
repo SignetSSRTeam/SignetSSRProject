@@ -158,6 +158,14 @@ CREATE TABLE MaterialsExpense (
 	)
 GO
 
+--DROP TABLE LoginAudit
+CREATE TABLE LoginAudit (
+	LoginAuditID INT IDENTITY (1,1) PRIMARY KEY,
+	UserName NVARCHAR(MAX) NULL,
+	Activity NVARCHAR(20) NULL,
+	TimeRecorded DATETIME NULL
+	)
+GO
 
 
 PRINT 'Tables Created'
