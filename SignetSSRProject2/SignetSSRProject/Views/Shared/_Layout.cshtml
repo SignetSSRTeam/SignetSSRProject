@@ -9,6 +9,14 @@
         .navbar-nav > li:hover {
             text-decoration:underline;
         }
+
+        ul li ul {
+            display: none;
+        }
+
+        ul li:hover ul {
+            display: block; /* display the dropdown */
+        }
         
     </style>
     @Styles.Render("~/Content/css")
