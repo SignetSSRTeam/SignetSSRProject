@@ -11,8 +11,10 @@
     @using (Html.BeginForm())
     {
     <p>
-        JobType: @Html.TextBox("JobType")<br />
-        <input type="submit" value="Filter" />
+        <b>Job Type:</b>&nbsp;
+        <input type="text" style="display:inline-block" class="form-control" placeholder="Job Type" id="jn" name="JobType" value="">
+        <button type="submit" style="display:inline" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+
     </p>
     }
 </p>

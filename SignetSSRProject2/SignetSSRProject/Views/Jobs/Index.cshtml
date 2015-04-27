@@ -11,9 +11,11 @@
     @using (Html.BeginForm())
     {
     <p>
-        JobNumber: @Html.TextBox("JobNumber")&nbsp;
-        VesselName: @Html.TextBox("VesselName")&nbsp;<br />
-        <input type="submit" value="Filter" />
+        
+        
+        <b>Job Number:</b>&nbsp;
+            <input type="text" style="display:inline-block" class="form-control" placeholder="Job Number" id="jn" name="JobNumber" value="">
+            <button type="submit" style="display:inline" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
     </p>
     }
 </p>
@@ -49,7 +51,8 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.JobNumber)
@@ -79,9 +82,9 @@
             @Html.DisplayFor(modelItem => item.Rate.JobType)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.JobID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.JobID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.JobID })
+            @Html.ActionLink("Edit", "Edit", new { id = item.JobID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.JobID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.JobID })
         </td>
     </tr>
 }
