@@ -133,8 +133,8 @@ CREATE TABLE Job (
 	VesselName VARCHAR(100) NOT NULL,
 	ItemNumber INT NULL,
 	Priority NVARCHAR NULL,
-	Status BIT NULL,
-	Description VARCHAR(100) NULL,
+	Status Nvarchar(255) NULL,
+	Description nVARCHAR(max) NULL,
 	StartDate DATETIME NULL,
 	EndDate DATETIME NULL
 	)
