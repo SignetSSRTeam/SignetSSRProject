@@ -3,6 +3,8 @@
 <script>
     var listJobNumber = '@ViewBag.jobNumbers';
     listJobNumber = JSON.parse(listJobNumber.replace(/&quot;/g, '"'));
+    var item = {"JobID":0, "JobNumber":""};
+    listJobNumber.unshift(item);
 </script>
 
 <script src="/Scripts/Materials/materials.js"></script>
@@ -23,6 +25,8 @@
 <h2>Material Expenses</h2>
 
 <div><h2></h2></div>
+
+<div id="error_placeholder"></div>
 
 <div id="jsGrid">
 </div>

@@ -48,13 +48,17 @@ namespace SignetSSRProject.Controllers
         }
 
         //GET: HoursWorked
-
-
-
-        public ContentResult HoursWorkedsData()
+        [HttpGet]
+        public ContentResult HoursWorkedsData(HoursWorked filter)
         {
             var hoursWorkeds = db.HoursWorkeds.Include(h => h.Employee).Include(h => h.Job);
             var hoursWorkedsData = (from hrs in hoursWorkeds
+                                    where (hrs.Employee.EmployeeID == filter.EmployeeID || filter.EmployeeID == 0)
+                                    && (hrs.Job.JobID == filter.JobID || filter.JobID == 0)
+                                    && (hrs.ItemNumber == filter.ItemNumber || filter.ItemNumber == null)
+                                    && (hrs.HoursWorkedRT == filter.HoursWorkedRT || filter.HoursWorkedRT == null)
+                                    && (hrs.HoursWorkedOT == filter.HoursWorkedOT || filter.HoursWorkedOT == null)
+                                    && (hrs.JobDescription == filter.JobDescription || filter.JobDescription == null)
                                  select new
                                  {
                                      hrs.HoursWorkedID,
@@ -129,8 +133,16 @@ namespace SignetSSRProject.Controllers
 
             if (ModelState.IsValid)
             {
-                db.Entry(hoursWorked).State = EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    db.Entry(hoursWorked).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {                    
+                    return Content("", "application/json");
+                }
+                
             }
             else
             {
@@ -142,6 +154,8 @@ namespace SignetSSRProject.Controllers
                         error = error + " \n" + err.ErrorMessage;
                     }
                 }
+                ViewBag.error = true;
+                ViewBag.errorMessage = error;
                 return Content("", "application/json");
             }
 

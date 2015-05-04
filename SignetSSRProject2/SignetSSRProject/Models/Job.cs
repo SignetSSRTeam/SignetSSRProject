@@ -14,7 +14,6 @@ namespace SignetSSRProject.Models
 
 using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
 public partial class Job
 {
@@ -32,24 +31,18 @@ public partial class Job
 
     public int JobID { get; set; }
 
-    [Required]
     public string JobNumber { get; set; }
 
-     [Required]
     public int CustomerID { get; set; }
 
-    [Required]
     public int RateID { get; set; }
 
-     [Required]
     public string VesselName { get; set; }
-     [Required]
+
     public string Priority { get; set; }
 
-    [UIHint ("TrueFalse")]
-    public Nullable<bool> Status { get; set; }
+    public string Status { get; set; }
 
-     [Required]
     public string Description { get; set; }
 
     public Nullable<System.DateTime> StartDate { get; set; }

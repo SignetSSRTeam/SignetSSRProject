@@ -32,7 +32,8 @@ namespace SignetSSRProject
                       "~/Content/JSGrid/jsgrid.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/jsgrid").Include(
-                      "~/Scripts/JSGrid/jsgrid.js"));
+                      "~/Scripts/JSGrid/jsgrid.js",
+                      "~/Scripts/JSGrid/validationhelper.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/materials").Include(
                       "~/Scripts/Materials/materials.js"));

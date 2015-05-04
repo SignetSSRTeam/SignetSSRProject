@@ -36,10 +36,18 @@ namespace SignetSSRProject.Controllers
         }
 
         // GET: /Materials/MaterialsData
-        public ContentResult MaterialsData()
+        public ContentResult MaterialsData(MaterialsExpense filter)
         {
             var materialsExpenses = db.MaterialsExpenses.Include(m => m.Job);
             var materialsData = (from mat in materialsExpenses
+                                 where (mat.ExpenseDescription.Contains(filter.ExpenseDescription) || string.IsNullOrEmpty(filter.ExpenseDescription))
+                                    && (mat.Expense == filter.Expense || filter.Expense == 0)
+                                    && (mat.Job.JobID == filter.JobID || filter.JobID == 0)
+                                    && (mat.ItemNumber == filter.ItemNumber || (filter.ItemNumber == 0))
+                                    && (mat.PONumber.Contains(filter.PONumber) || string.IsNullOrEmpty(filter.PONumber))
+                                    && (mat.InvoiceNumber.Contains(filter.InvoiceNumber) || string.IsNullOrEmpty(filter.InvoiceNumber))
+                                    && (mat.TaxPercentage == filter.TaxPercentage || filter.TaxPercentage == null)
+                                    && (mat.MarkupPercentage == filter.MarkupPercentage || filter.MarkupPercentage == null)
                                  select new
                                  {
                                      mat.MaterialsExpenseID,
@@ -50,6 +58,7 @@ namespace SignetSSRProject.Controllers
                                      mat.PONumber,
                                      mat.InvoiceNumber,
                                      mat.TaxIncluded,
+                                     mat.InvoiceReceived,
                                      mat.TaxPercentage,
                                      mat.MarkupPercentage
                                  }).ToList();
@@ -64,7 +73,6 @@ namespace SignetSSRProject.Controllers
         {
             var materialsExpenses = db.MaterialsExpenses.Include(m => m.Job);
             var job = db.Jobs;
-            materials.ItemNumber = 1; //Hard coding for now because there will be future changes in the database
             if (ModelState.IsValid)
             {
                 db.MaterialsExpenses.Add(materials);

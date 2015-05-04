@@ -14,22 +14,20 @@ namespace SignetSSRProject.Models
 
 using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
 public partial class MaterialsExpense
 {
 
     public int MaterialsExpenseID { get; set; }
 
-    [Required]
     public decimal Expense { get; set; }
-     [Required]
+
     public int JobID { get; set; }
-     [Required]
+
     public string ExpenseDescription { get; set; }
-     [Required]
+
     public string PONumber { get; set; }
-     [Required]
+
     public string InvoiceNumber { get; set; }
 
     public Nullable<bool> TaxIncluded { get; set; }

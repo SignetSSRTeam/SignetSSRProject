@@ -14,29 +14,22 @@ namespace SignetSSRProject.Models
 
 using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
 public partial class Attendance
 {
 
     public int AttendanceID { get; set; }
 
-    [Required]
     public int EmployeeID { get; set; }
 
-    [Required]
-    [DataType(DataType.Date)]
     public System.DateTime Date { get; set; }
 
-    [Required]
     public string Attendance1 { get; set; }
 
     public Nullable<decimal> HoursMissed { get; set; }
 
-    [Required]
     public string Reason { get; set; }
 
-     [UIHint("TrueFalse")]
     public Nullable<bool> Excused { get; set; }
 
     public Nullable<decimal> CostOption { get; set; }

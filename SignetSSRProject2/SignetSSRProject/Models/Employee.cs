@@ -14,7 +14,6 @@ namespace SignetSSRProject.Models
 
 using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
 public partial class Employee
 {
@@ -34,38 +33,26 @@ public partial class Employee
 
     public int EmployeeID { get; set; }
 
-    [Required]
     public string FirstName { get; set; }
-    
-    [Required]
+
     public string LastName { get; set; }
 
-    [Required]
     public string JobTitle { get; set; }
 
-     [UIHint("TrueFalse")]
     public Nullable<bool> Supervisor { get; set; }
 
-     [UIHint("TrueFalse")]
     public Nullable<bool> ContractLabor { get; set; }
 
     public Nullable<decimal> WageRateRT { get; set; }
 
     public Nullable<decimal> WageRateOT { get; set; }
 
-     [Required]
-    [DataType(DataType.PhoneNumber)]
     public string HomePhone { get; set; }
 
-     [Required]
-     [DataType(DataType.PhoneNumber)]
     public string CellPhone { get; set; }
 
-     [Required]
     public string Address { get; set; }
 
-     [Required]
-     [DataType(DataType.EmailAddress)]
     public string EmailAddress { get; set; }
 
     public string Notes { get; set; }

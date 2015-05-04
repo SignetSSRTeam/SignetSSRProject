@@ -3,9 +3,13 @@
 <script>
     var listEmployeeName = '@ViewBag.employeeNames';
     listEmployeeName = JSON.parse(listEmployeeName.replace(/&quot;/g, '"'));
+    var itemEmployee = { "EmployeeID": 0, "EmployeeName": "" };
+    listEmployeeName.unshift(itemEmployee);
 
     var listJobNumber = '@ViewBag.jobNumbers';
     listJobNumber = JSON.parse(listJobNumber.replace(/&quot;/g, '"'));
+    var itemJob = { "JobID": 0, "JobNumber": "" };
+    listJobNumber.unshift(itemJob);
 </script>
 
 <script src="/Scripts/HoursWorked/hoursWorked.js"></script>
@@ -23,7 +27,10 @@
 
 <h2>Record Hours Worked</h2>
 
+<div id="error_placeholder"></div>
+
 <div id="jsGrid">
 
    
 </div>
+

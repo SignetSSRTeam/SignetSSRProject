@@ -231,7 +231,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Icon.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\SSRDataModel.edmx">
@@ -257,7 +256,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <None Include="Properties\PublishProfiles\SSRISC567.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\JSGrid\validationhelper.js" />
     <Content Include="Scripts\Employees\wagehistory.js" />
     <Content Include="Scripts\HoursWorked\hoursWorked.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

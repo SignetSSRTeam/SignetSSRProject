@@ -14,7 +14,6 @@ namespace SignetSSRProject.Models
 
 using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
 public partial class Rate
 {
@@ -30,15 +29,12 @@ public partial class Rate
 
     public int RateID { get; set; }
 
-    [Required]
     public string JobType { get; set; }
 
-     [UIHint("TrueFalse")]
     public Nullable<bool> Supervisor { get; set; }
 
-     [Required]
     public decimal RateRT { get; set; }
-     [Required]
+
     public decimal RateOT { get; set; }
 
     public Nullable<decimal> CostOption { get; set; }
