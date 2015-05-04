@@ -43,10 +43,12 @@ public partial class WageHistory
 
     [Required]
     [DataType(DataType.Date)]
+    [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
     public Nullable<System.DateTime> DateStart { get; set; }
 
      
     [DataType(DataType.Date)]
+    [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
     public Nullable<System.DateTime> DateEnd { get; set; }
 
     [Required]

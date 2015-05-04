@@ -26,6 +26,7 @@ public partial class Attendance
 
     [Required]
     [DataType(DataType.Date)]
+    [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
     public System.DateTime Date { get; set; }
 
      [Required]

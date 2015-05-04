@@ -50,6 +50,7 @@ public partial class MaterialsExpense
 
     [Required]
     [DataType(DataType.Date)]
+    [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
     public Nullable<System.DateTime> ExpenseDate { get; set; }
 
     [Required]
