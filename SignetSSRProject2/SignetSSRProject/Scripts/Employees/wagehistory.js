@@ -4,7 +4,8 @@
         width: "100%",
         height: "400px",
 
-        filtering: true,
+        filtering: false,
+        inserting: true,
         editing: true,
         sorting: true,
         paging: true,

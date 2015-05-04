@@ -73,7 +73,12 @@ namespace SignetSSRProject.Controllers
         {
             var materialsExpenses = db.MaterialsExpenses.Include(m => m.Job);
             var job = db.Jobs;
-            if (ModelState.IsValid)
+
+            ModelState.Clear();
+            TryValidateModel(materials); //Hack to ignore empty job fields 
+            bool isValid = true;
+
+            if (isValid)
             {
                 db.MaterialsExpenses.Add(materials);
                 db.SaveChanges();
@@ -101,8 +106,10 @@ namespace SignetSSRProject.Controllers
         [HttpPost]
         public ContentResult UpdateMaterialsData(MaterialsExpense materials)
         {
-            
-            materials.ItemNumber = 1; //Hard coding for now because there will be future changes in the database
+
+            ModelState.Clear();
+            TryValidateModel(materials); //Hack to ignore empty employee and job fields 
+
             if (ModelState.IsValid)
             {
                 db.Entry(materials).State = EntityState.Modified;
@@ -133,7 +140,9 @@ namespace SignetSSRProject.Controllers
             var materialsExpenses = db.MaterialsExpenses.Include(m => m.Job);
             MaterialsExpense removeMaterials = db.MaterialsExpenses.Find(materials.MaterialsExpenseID);
 
-            if (ModelState.IsValid)
+
+            var isValid = true; //Work around to resolve error
+            if (isValid)
             {
                 db.MaterialsExpenses.Remove(removeMaterials);
                 db.SaveChanges();
@@ -151,7 +160,7 @@ namespace SignetSSRProject.Controllers
             }
 
             JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
-            string output = jsonSerializer.Serialize(removeMaterials);
+            string output = jsonSerializer.Serialize(materials);
             return Content(output, "application/json");
 
         }

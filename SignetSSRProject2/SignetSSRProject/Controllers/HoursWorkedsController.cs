@@ -78,11 +78,13 @@ namespace SignetSSRProject.Controllers
         //POST: /HoursWorked/InsertHoursWorkedData
         [HttpPost]
         public ContentResult InsertHoursWorkedsData(HoursWorked hoursWorked)
-        {
-            TryValidateModel(hoursWorked); //Hack to ignore empty employee and job fields 
+        {           
 
             var wageHistoryID = db.WageHistories.Where(x => x.EmployeeID == hoursWorked.EmployeeID && x.IsCurrent == true).Select(x => x.WageHistoryID).FirstOrDefault();
             hoursWorked.WageHistoryID = wageHistoryID;
+
+            ModelState.Clear();
+            TryValidateModel(hoursWorked); //Hack to ignore empty employee and job fields 
 
             if (ModelState.IsValid)
             {
@@ -188,7 +190,11 @@ namespace SignetSSRProject.Controllers
             var hoursWorkedsData = db.HoursWorkeds.Include(h => h.Employee).Include(h => h.ItemNumber).Include(h => h.Job);
             HoursWorked removeHrsWorked = db.HoursWorkeds.Find(hoursWorked.HoursWorkedID);
 
-            if (ModelState.IsValid)
+            ModelState.Clear();
+            TryValidateModel(hoursWorked); //Hack to ignore empty employee and job fields 
+            var isValid = true; //Work around to resolve error
+
+            if (isValid)
             {
                 db.HoursWorkeds.Remove(removeHrsWorked);
                 db.SaveChanges();
@@ -207,7 +213,7 @@ namespace SignetSSRProject.Controllers
             }
 
             JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
-            string output = jsonSerializer.Serialize(removeHrsWorked);
+            string output = jsonSerializer.Serialize(hoursWorked);
             return Content(output, "application/json");
 
         }

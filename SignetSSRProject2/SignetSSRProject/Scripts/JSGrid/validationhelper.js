@@ -8,6 +8,12 @@ function validateHoursWorked(item) {
     if (item.JobDescription.length > 255) {
         bootstrap_alert.warning("ERROR! Row not saved. Invalid Job description. Make sure the text is less than 255 characters. Please hit F5 or refresh Screen");
         return false;
+    } else if (item.JobID == 0) {
+        bootstrap_alert.warning("ERROR! Row not saved. Invalid Job Number. Make sure that a value for the Job Number is selected. Please hit F5 or refresh Screen");
+        return false;
+    } else if (item.EmployeeID == 0) {
+        bootstrap_alert.warning("ERROR! Row not saved. Invalid Employee. Make sure that a value Employee is selected. Please hit F5 or refresh Screen");
+        return false;
     } else if ($.isNumeric(item.ItemNumber) == false) {
         bootstrap_alert.warning("ERROR! Row not saved. Invalid Item Number. Make sure the item number is numeric. Please hit F5 or refresh Screen");
         return false;
