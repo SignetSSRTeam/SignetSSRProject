@@ -25,7 +25,8 @@ namespace SignetSSRProject
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/bootstrap-carousel.css"));
 
             bundles.Add(new StyleBundle("~/bundles/jsgrid/CSS").Include(
                       "~/Content/JSGrid/jsgrid-theme.css",
