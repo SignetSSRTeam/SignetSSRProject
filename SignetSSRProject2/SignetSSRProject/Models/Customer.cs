@@ -14,6 +14,7 @@ namespace SignetSSRProject.Models
 
 using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
 public partial class Customer
 {
@@ -29,22 +30,35 @@ public partial class Customer
 
     public int CustomerID { get; set; }
 
+    [Required]
     public string FirstName { get; set; }
 
+    [Required]
     public string LastName { get; set; }
 
+    [Required]
     public string Company { get; set; }
 
+    [Required]
     public string Title { get; set; }
 
+    [Required]
+    [DataType(DataType.PhoneNumber)]
     public string BusinessPhone { get; set; }
 
+    [Required]
+    [DataType(DataType.PhoneNumber)]
     public string HomePhone { get; set; }
 
+    [Required]
+    [DataType(DataType.PhoneNumber)]
     public string CellPhone { get; set; }
 
+    [DataType(DataType.PhoneNumber)]
     public string FaxNumber { get; set; }
 
+    [Required]
+    [DataType(DataType.EmailAddress)]
     public string EmailAddress { get; set; }
 
     public string Notes { get; set; }

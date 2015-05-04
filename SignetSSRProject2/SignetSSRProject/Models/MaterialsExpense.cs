@@ -14,35 +14,46 @@ namespace SignetSSRProject.Models
 
 using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
 public partial class MaterialsExpense
 {
 
     public int MaterialsExpenseID { get; set; }
 
+    [Required]
     public decimal Expense { get; set; }
 
+    [Required]
     public int JobID { get; set; }
 
+    [Required]
     public string ExpenseDescription { get; set; }
 
+    [Required]
     public string PONumber { get; set; }
 
+    [Required]
     public string InvoiceNumber { get; set; }
 
+    [Required]
     public Nullable<bool> TaxIncluded { get; set; }
 
+    [Required]
     public Nullable<decimal> TaxPercentage { get; set; }
 
+    [Required]
     public Nullable<decimal> MarkupPercentage { get; set; }
 
+    [Required]
     public Nullable<int> ItemNumber { get; set; }
 
+    [Required]
+    [DataType(DataType.Date)]
     public Nullable<System.DateTime> ExpenseDate { get; set; }
 
+    [Required]
     public Nullable<bool> InvoiceReceived { get; set; }
-
-
 
     public virtual Job Job { get; set; }
 

@@ -14,26 +14,38 @@ namespace SignetSSRProject.Models
 
 using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
 public partial class HoursWorked
 {
 
     public int HoursWorkedID { get; set; }
 
+    [Required]
     public int EmployeeID { get; set; }
-
+    
+    [Required]
     public int JobID { get; set; }
 
+     [Required]
+    [DataType(DataType.Date)]
     public System.DateTime Date { get; set; }
 
+     [Required]
+     [DataType(DataType.Currency)]
     public Nullable<decimal> HoursWorkedRT { get; set; }
-
+   
+    [Required]
+    [DataType(DataType.Currency)]
     public Nullable<decimal> HoursWorkedOT { get; set; }
-
+   
+    [Required]
     public Nullable<int> ItemNumber { get; set; }
-
+    
+    [Required]
     public Nullable<int> WageHistoryID { get; set; }
 
+     [Required]
     public string JobDescription { get; set; }
 
 

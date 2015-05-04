@@ -14,6 +14,7 @@ namespace SignetSSRProject.Models
 
 using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
 public partial class WageHistory
 {
@@ -29,16 +30,26 @@ public partial class WageHistory
 
     public int WageHistoryID { get; set; }
 
+    [Required]
     public int EmployeeID { get; set; }
 
+    [Required]
+    [DataType(DataType.Currency)]
     public int WageRT { get; set; }
 
+    [Required]
+    [DataType(DataType.Currency)]
     public int WageOT { get; set; }
 
+    [Required]
+    [DataType(DataType.Date)]
     public Nullable<System.DateTime> DateStart { get; set; }
 
+     
+    [DataType(DataType.Date)]
     public Nullable<System.DateTime> DateEnd { get; set; }
 
+    [Required]
     public bool IsCurrent { get; set; }
 
 
