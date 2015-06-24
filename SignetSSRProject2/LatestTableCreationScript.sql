@@ -81,7 +81,7 @@ CREATE TABLE Rate (
 	Supervisor Bit,
 	RateRT MONEY NOT NULL,
 	RateOT MONEY NOT NULL,
-	CostOption DECIMAL NULL
+	LaborHourlyCost DECIMAL NULL
 	)
 GO
 
@@ -91,7 +91,6 @@ CREATE TABLE Attendance (
 	EmployeeID INT NOT NULL,
 	Date DATETIME NOT NULL,
 	Attendance VARCHAR(15) NULL,
-	CostOption DECIMAL NULL,
 	HoursMissed DECIMAL NULL,
 	Reason NVARCHAR(100) NULL,
 	Excused BIT NULL
@@ -231,12 +230,12 @@ GO
 PRINT ('table Customer Inserted');
 GO
 
-INSERT INTO Attendance(EmployeeID,Date,Attendance,CostOption,HoursMissed,Reason,Excused)
-VALUES (1,'3-4-2015','7.5 Hours',null,0.5,'Late',1);
-INSERT INTO Attendance(EmployeeID,Date,Attendance,CostOption,HoursMissed,Reason,Excused)
-VALUES (2,'3-4-2015','7.75 Hours',null,0.25,'Left Early',0);
-INSERT INTO Attendance(EmployeeID,Date,Attendance,CostOption,HoursMissed,Reason,Excused)
-VALUES (3,'3-4-2015','7.90 Hours',null,0.10,'Traffic',1);
+INSERT INTO Attendance(EmployeeID,Date,Attendance,HoursMissed,Reason,Excused)
+VALUES (1,'3-4-2015','7.5 Hours',0.5,'Late',1);
+INSERT INTO Attendance(EmployeeID,Date,Attendance,HoursMissed,Reason,Excused)
+VALUES (2,'3-4-2015','7.75 Hours',0.25,'Left Early',0);
+INSERT INTO Attendance(EmployeeID,Date,Attendance,HoursMissed,Reason,Excused)
+VALUES (3,'3-4-2015','7.90 Hours',0.10,'Traffic',1);
 GO
 PRINT ('table Attendence Inserted');
 GO
