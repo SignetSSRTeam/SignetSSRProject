@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignetSSRProject", "SignetSSRProject\SignetSSRProject.csproj", "{DA8F919B-D0D7-4FA2-9E9A-1469CCD535BF}"
 EndProject
@@ -17,6 +17,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL Scripts", "SQL Scripts"
 	EndProjectSection
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SignetSSRProjectData", "SignetSSRProjectData\SignetSSRProjectData.sqlproj", "{70A2D051-ECC3-43F7-BF6C-CCBAE4F467E1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReportStoredProcs", "ReportStoredProcs", "{1EDAD81A-2111-40B6-9325-CB88CAB0D07F}"
+	ProjectSection(SolutionItems) = preProject
+		5.2EmployeeHoursWOrkedWeekly.sql = 5.2EmployeeHoursWOrkedWeekly.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,5 +45,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CF38F897-6ABA-4426-BD3C-3C093D0E2F09} = {85D17BBB-9F9C-4BC9-8A0F-078E66992D68}
+		{1EDAD81A-2111-40B6-9325-CB88CAB0D07F} = {85D17BBB-9F9C-4BC9-8A0F-078E66992D68}
 	EndGlobalSection
 EndGlobal
