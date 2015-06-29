@@ -6,7 +6,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-ALTER PROCEDURE [dbo].[uspGetHoursWorkedWeekly]
+CREATE PROCEDURE [dbo].[uspGetHoursWorkedWeekly]
     @ContractLaborer [bit],
 	@Date [Date]
 
