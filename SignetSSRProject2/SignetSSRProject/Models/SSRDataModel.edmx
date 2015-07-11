@@ -13,7 +13,6 @@
           <Property Name="EmployeeID" Type="int" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="Attendance" Type="varchar" MaxLength="15" />
-          <Property Name="CostOption" Type="decimal" Precision="18" Scale="0" />
           <Property Name="HoursMissed" Type="decimal" Precision="18" Scale="0" />
           <Property Name="Reason" Type="nvarchar" MaxLength="100" />
           <Property Name="Excused" Type="bit" />
@@ -117,7 +116,7 @@
           <Property Name="Supervisor" Type="bit" />
           <Property Name="RateRT" Type="money" Nullable="false" />
           <Property Name="RateOT" Type="money" Nullable="false" />
-          <Property Name="CostOption" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="LaborHourlyCost" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="WageHistory">
           <Key>
@@ -286,7 +285,6 @@
           <Property Name="Reason" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Excused" Type="Boolean" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_Attendance_Employee" FromRole="Attendance" ToRole="Employee" />
-          <Property Name="CostOption" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -391,7 +389,7 @@
           <Property Name="RateRT" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="RateOT" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <NavigationProperty Name="Jobs" Relationship="Self.FK_Job_Rate" FromRole="Rate" ToRole="Job" />
-          <Property Name="CostOption" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="LaborHourlyCost" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="WageHistory">
           <Key>
@@ -564,7 +562,6 @@
           <EntitySetMapping Name="Attendances">
             <EntityTypeMapping TypeName="ISC567_SSRS_DatabaseModel.Attendance">
               <MappingFragment StoreEntitySet="Attendance">
-                <ScalarProperty Name="CostOption" ColumnName="CostOption" />
                 <ScalarProperty Name="AttendanceID" ColumnName="AttendanceID" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
@@ -664,7 +661,7 @@
           <EntitySetMapping Name="Rates">
             <EntityTypeMapping TypeName="ISC567_SSRS_DatabaseModel.Rate">
               <MappingFragment StoreEntitySet="Rate">
-                <ScalarProperty Name="CostOption" ColumnName="CostOption" />
+                <ScalarProperty Name="LaborHourlyCost" ColumnName="LaborHourlyCost" />
                 <ScalarProperty Name="RateID" ColumnName="RateID" />
                 <ScalarProperty Name="JobType" ColumnName="JobType" />
                 <ScalarProperty Name="Supervisor" ColumnName="Supervisor" />
